@@ -1,0 +1,29 @@
+<!doctype html>
+
+<head>
+    <title>delete category by id</title>
+
+    <link href="/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h4>Delete Category by Keyword</h4>
+            <p>Please provide category ID and click delete</p>
+
+            <form action="/category/33306036/delete-by-ID" method="POST">
+                <div class="form-group">
+                    <label for="id">Category ID</label>
+                    <input type="text" class="form-control" id="id" name="catId" placeholder="Enter Category ID">
+                </div>
+
+                <div class="buttons-contain">
+                    <button type="submit" class="btn btn-danger" name="submit">Delete Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
