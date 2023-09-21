@@ -2,17 +2,25 @@
 
 
 <div class="container1">
-  <h3>Admin Panel</h3>
-  <p>Task group 1 (Jade)</p>
+  <p>Task 1: Jade</p>
+</div>
+<div class="buttons-contain">
+  <a routerLink="/add-category" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">Add Category</a>
+  <a routerLink="/list-categories" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">List Category</a>
+  <a routerLink="/delete-category" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">Delete Category</a>
+  <a routerLink="/update-category" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">Update Category</a>
 </div>
 
-<div class="buttons-contain">
-<a routerLink="/add-category" class="buttons">Add Category</a>
-<a routerLink="/list-categories" class="buttons">List Category</a>
-<a routerLink="/delete-category" class="buttons">Delete Category</a>
-<a routerLink="/display-category" class="buttons">Display Category</a>
-<a routerLink="/update-category" class="buttons">Update Category</a>
+<div class="container1">
+  <p>Task 2: Sidd</p>
 </div>
+<div class="buttons-contain">
+  <a routerLink="/add-event" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">Add Event</a>
+  <a routerLink="/list-event" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">List Event</a>
+  <a routerLink="/update-event" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">Delete Event</a>
+  <a routerLink="/delete-event" class="btn btn-primary btn-primary-unclicked m-1" routerLinkActive="btn-primary-clicked">Update Event</a>
+</div>
+
 <router-outlet></router-outlet>
 <br>
 <app-footer></app-footer>

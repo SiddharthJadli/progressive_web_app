@@ -1,24 +1,7 @@
 <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Update Category</h2>
 
+<div class="container m-8">
 
-<div class="section">
-  <table class="table table-striped">
-    <tr>
-      <th>Category ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Action</th>
-    </tr>
-    <tr *ngFor="let item of categories">
-      <td>{{item.catId}}</td>
-      <td>{{item.name}}</td>
-      <td>{{item.description}}</td>
-      <td> <button class="btn btn-primary" (click)="onUpdateCategory">Update</button>
-      </td>
-
-    </tr>
-  </table>
-  <hr>
   <div *ngIf="categories.length>0">
     <div class="form-group">
       <label for="ID">Category ID</label>
@@ -38,4 +21,24 @@
 
     <button type="submit" class="btn btn-primary" (click)="onUpdateCategory">Update Category</button>
   </div>
+
+  <hr>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Category ID</th>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Created Date</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let item of categories">
+      <td>{{item.catId}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.description}}</td>
+      <td> <button class="btn btn-primary" (click)="onUpdateCategory">Update</button>
+      </td>
+
+    </tr>
+  </table>
 </div>
