@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
@@ -8,25 +8,23 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent {
-  
-  constructor(private dbService:DatabaseService){}
+  name: string = "";
+  description: string = "";
+  image: string = "";
+  constructor(private dbService:DatabaseService, private router: Router){}
 
 //   //create category object
-//   saveCategory() {
-//     let categoryObj = {
-//       catId: this.catId,
-//       name: this.name,
-//       description: this.description,
-//       image: this.image,
-//       createdAt: this.createdAt,
-//       createdAtFormatted: this.createdAtFormatted,
-//       eventId: this.eventId,
-//       //eventList:this.eventList
-//     };
-//     this.dbService.addCategory(categoryObj).subscribe({
-//       next: (result) => {this.router.navigate(["/list-categories"])},
-//       error: (error) => {console.log(error)}
-//     })
-//   }
+  saveCategory() {
+    let categoryObj = {
+      name: this.name,
+      description: this.description,
+      image: this.image,
+    };
+    
+    this.dbService.addCategory(categoryObj).subscribe({
+      next: (result) => {this.router.navigate(["/list-categories"])},
+      error: (error) => {console.log(error)}
+    })
+  }
 }
 //1.09 in wk9 lect
