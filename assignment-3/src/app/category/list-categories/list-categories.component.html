@@ -1,66 +1,60 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html Lang="en">
+<!-- add button for display category -->
+<body>
+    <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">category List</h2>
+
+    <div class="container m-8">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="categories.length == 0">
+                    <td scope="row" colspan="8" class="text-center text-bold">No category found</td>
+                </tr>
+
+                <tr *ngFor="let category of categories">
+                    <td>{{ category.catId }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.description }}</td>
+
+                 
+                    <!-- <td>
+                            <img
+                                *ngIf="category.image"
+                                [src]="category.image" 
+                                alt="Category Image" 
+                                style="width: 500px; height: auto;">
+                            />
+                            <img
+                            *ngIf="!category.image"
+                            [src]="'/assets/images/Categoryimg.png'" 
+                            alt="Default Image" 
+                            style="width: 500px; height: auto;">
+                            />
+                        </td> -->
 
 
-    <body>
-        <a href="/"> <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;"> </a>
+                    <td>{{ category.createdAtFormatted }}</td>
 
-        <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Categories List</h2>
+                    <td>
+                        <div class="buttons-contain">
+                            <a [routerLink]="'/sidd/category?id=' + category.catId" class="btn btn-primary"
+                                role="button">View</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
 
-        <script>
-            if (window.location.href.includes("/category/33306036/list-by-keyword")) {
-                document.write('<% if (categories.length > 0) { %>');
-                document.write('<h5 style="text-align: center;">keyword \'<%= categories[0].name || categories[0].description %>\' is filtered</h5>');
-                document.write('<% } %>');
-            }
-        </script>
-
-        <div class="container m-8" >
-            <table class="table">
-                <thead>
-                    
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(let i=0;i <categories.length;i++){ %>
-                    <tr>
-                        <td>
-                            <%= categories[i].catId %>
-                        </td>
-                        <td>
-                            <%= categories[i].name %>
-                        </td>
-                        <td>
-                            <%= categories[i].description %>
-                        </td>
-
-                        <td>
-                            <% if(categories[i].image) { %>
-                                <img src="/<%= categories[i].image %>" alt="events" style="width: 500px; height: auto;">
-                                <% } else { %>
-                                    <img src="/Categoryimg.png" alt="events" style="width: 500px; height: auto;">
-                                <% } %>
-                        </td>
-
-                        <td>        
-                            <%= categories[i].createdAtFormatted %>
-                        </td>
-
-                        <td>
-                            <div class="buttons-contain">
-                                <a href="/sidd/category?id=<%= categories[i].catId %>" class="btn btn-primary" role="button">View</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
-    </body> -->
+</html>

@@ -8,6 +8,7 @@ import { DeleteCategoryComponent } from './category/delete-category/delete-categ
 import { DisplayCategoryComponent } from './category/display-category/display-category.component';
 import { UpdateCategoryComponent } from './category/update-category/update-category.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { FormsModule } from '@angular/forms';
 
 import {RouterModule, Routes} from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
@@ -20,8 +21,7 @@ const routes: Routes = [
   {path:"delete-category", component:DeleteCategoryComponent},
   {path:"display-category", component:DisplayCategoryComponent},
   {path:"update-category", component:UpdateCategoryComponent},
-  // {path:"", pathMatch: 'full', redirectTo: 'add-category'},
-
+  { path: '', pathMatch: 'full', redirectTo: 'add-category' },
   {path:"*", component:PageNotFoundComponent}]
 
 
@@ -34,10 +34,14 @@ const routes: Routes = [
     DeleteCategoryComponent,
     DisplayCategoryComponent,
     UpdateCategoryComponent,
+    PageNotFoundComponent,
     FooterComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(routes,{useHash:true}), HttpClientModule
+    BrowserModule, 
+    RouterModule.forRoot(routes,{useHash:true}), 
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [DatabaseService],
   bootstrap: [AppComponent]

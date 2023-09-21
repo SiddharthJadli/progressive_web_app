@@ -2,28 +2,30 @@
 
 <head>
     <title>delete category by id</title>
-
-    <link href="/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
 <body>
-    <div class="container">
-        <div>
-            <h4>Delete Category by Keyword</h4>
-            <p>Please provide category ID and click delete</p>
+    <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Delete Category</h2>
 
-            <form action="/category/33306036/delete-by-ID" method="POST">
-                <div class="form-group">
-                    <label for="id">Category ID</label>
-                    <input type="text" class="form-control" id="id" name="catId" placeholder="Enter Category ID">
-                </div>
+    <div class="section">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Category ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
 
-                <div class="buttons-contain">
-                    <button type="submit" class="btn btn-danger" name="submit">Delete Category</button>
-                </div>
-            </form>
-        </div>
+            <tr *ngFor="let item of categories">
+                <td>{{item.catId}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td> <button class="btn btn-primary" (click)="onDeleteCategory(item)">Delete</button>
+                </td>
+            </tr>          
+
+        </table>
     </div>
 </body>
-
