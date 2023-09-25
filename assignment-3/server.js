@@ -15,11 +15,9 @@ const url = "mongodb://127.0.0.1:27017/assignment02";
 const app = express();
 // const ejs = require("ejs");
 
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "assignment-3/dist/assignment-3/index.html"));
-});
+
 //express will serve angular as a static asset
-// app.use(express.static(path.join(__dirname, "assignment-3/dist/assignment-3")));
+app.use(express.static(path.join(__dirname, "assignment-3/dist/assignment-3")));
 
 app.use(express.json());
 // app.use(express.urlencoded({extended: true}));
