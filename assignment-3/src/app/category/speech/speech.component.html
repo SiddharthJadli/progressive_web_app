@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div class="container-fluid d-flex justify-content-center mt-5 vh-100">
+        <div>
+            <h4>Text to Speech</h4>
+            <p>Please fill text to convert</p>
+
+            <form>
+                <div class="form-group mb-8">
+                    <textarea class="form-control" id="textToSpeech" [(ngModel)]="text"
+                        placeholder="Enter text" rows="7"></textarea>
+                </div>
+
+
+                <button type="button" class="btn btn-success mt-4" (click)="textToSpeech()">Convert to Speech</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

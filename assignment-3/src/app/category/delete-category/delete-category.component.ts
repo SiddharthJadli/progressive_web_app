@@ -8,12 +8,13 @@ import { Router } from "@angular/router";
   styleUrls: ['./delete-category.component.css']
 })
 export class DeleteCategoryComponent implements OnInit {
-  categories: any = [];
+  categories: any[] = [];
 
   constructor(private dbService: DatabaseService, private router: Router) {}
   
+
   onGetCategory() {
-    console.log("From on GetCategory");
+    console.log("from onGetCategory");
 
     return this.dbService.getCategory().subscribe((data: any) => {
       this.categories = data;
@@ -21,14 +22,15 @@ export class DeleteCategoryComponent implements OnInit {
   }
 
   onDeleteCategory(category: any) {
-    this.dbService.deleteCategory(category._id).subscribe(result => {
+    this.dbService.deleteCategory(category.catId).subscribe(result => {
       this.onGetCategory();
+      this.ngOnInit();
       this.router.navigate(["/list-categories"]);
     });
   }
-
   ngOnInit() {
     this.onGetCategory();
   }
+
 
 }

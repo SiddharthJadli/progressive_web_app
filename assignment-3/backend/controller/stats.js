@@ -2,10 +2,10 @@ const Operation = require("../models/operation");
 const event = require("../models/event");
 const category = require("../models/category");
 
-// async function getCounter(key) {
-//     const operation = await Operation.findOne({ operation: key });
-//     return operation.counter;
-// }
+async function getCounter(key) {
+    const operation = await Operation.findOne({ operation: key });
+    return operation.counter;
+}
 
 module.exports = {
     
@@ -19,7 +19,6 @@ module.exports = {
     countCategories: async function (req, res) {
         const categoryCount = await category.countDocuments();
         res.status(200).json({count: categoryCount});
-    
     },
     
     // counting events label

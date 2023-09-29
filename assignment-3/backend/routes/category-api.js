@@ -10,6 +10,7 @@ const router = express.Router();
  * @name POST /add-category
  * @function
  */
+
 router.post("/add-category", categoryController.addCategory);
 /**
  * Route for listing a category.
@@ -22,7 +23,7 @@ router.get("/list-category", categoryController.listCategory);
  * @name DELETE /delete-category
  * @function
  */
-router.delete("/delete-category", categoryController.deleteCategory);
+// router.delete("/delete-category/:catId", categoryController.deletingCategory);
 /**
  * Route for update a category.
  * @name PUT /update-category
