@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html Lang="en">
-<!-- add button for display category. -->
+
 <body>
     <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Category List</h2>
 
@@ -8,7 +8,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Category ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Image</th>
@@ -19,39 +19,33 @@
             </thead>
             <tbody>
                 <tr *ngIf="categories.length == 0">
-                    <td scope="row" colspan="8" class="text-center text-bold">No category found</td>
+                    <td scope="row" colspan="8"class="text-center text-bold">No category found</td>
                 </tr>
 
                 <tr *ngFor="let category of categories">
                     <td>{{ category.catId }}</td>
-                    <td>{{ category.name }}</td>
+                    <td>{{ category.name | caps }}</td>
                     <td>{{ category.description }}</td>
 
-                 
-                    <!-- <td>
-                            <img
-                                *ngIf="category.image"
-                                [src]="category.image" 
-                                alt="Category Image" 
-                                style="width: 500px; height: auto;">
-                            />
-                            <img
-                            *ngIf="!category.image"
-                            [src]="'/assets/images/Categoryimg.png'" 
-                            alt="Default Image" 
-                            style="width: 500px; height: auto;">
-                            />
-                        </td> -->
+                    <td>
+                        <img *ngIf="category.image"
+                            [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image"
+                            alt="Category Image" style="width: 500px; height: auto;" />
+                        <img *ngIf="!category.image" [src]="'/assets/Images/Categoryimg.png'" alt="Default Image"
+                            style="width: 500px; height: auto;" />
+                    </td>
 
 
                     <td>{{ category.createdAtFormatted }}</td>
+                    <td>{{ category.eventsCount }}</td>
+
 
                     <td>
                         <div class="buttons-contain">
-                            <a [routerLink]="'/sidd/category?id=' + category.catId" class="btn btn-primary"
-                                role="button">View</a>
+                            <a [routerLink]="'/display-category'" class="btn btn-primary" role="button">display</a>
                         </div>
                     </td>
+
                 </tr>
             </tbody>
         </table>

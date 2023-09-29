@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {DatabaseService} from 'src/app/services/database.service';
 
 @Component({
@@ -7,7 +7,6 @@ import {DatabaseService} from 'src/app/services/database.service';
     styleUrls: ['./list-categories.component.css']
 })
 export class ListCategoriesComponent {
-    filteredKeyword : string = '';
     categories : any = [];
 
 
@@ -24,11 +23,5 @@ export class ListCategoriesComponent {
         })
     }
 
-    // ngOnInit() {
-    //     this.filteredKeyword = "filteredKeyword";
-    //     this.dbService.getCategories().subscribe((data : any) => {
-    //         this.categories = data;
-    //     });
-
-    // }
+  
 }

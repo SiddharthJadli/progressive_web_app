@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 
 import { AppComponent } from './app.component';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
@@ -8,12 +9,16 @@ import { DeleteCategoryComponent } from './category/delete-category/delete-categ
 import { DisplayCategoryComponent } from './category/display-category/display-category.component';
 import { UpdateCategoryComponent } from './category/update-category/update-category.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { FormsModule } from '@angular/forms';
+import { SpeechComponent } from './category/speech/speech.component';
+import { Stats1Component } from './category/stats1/stats1.component';
 
 import {RouterModule, Routes} from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { DatabaseService } from './services/database.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CapsPipe } from './caps.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const routes: Routes = [
   {path:"add-category", component:AddCategoryComponent},
@@ -21,8 +26,10 @@ const routes: Routes = [
   {path:"delete-category", component:DeleteCategoryComponent},
   {path:"display-category", component:DisplayCategoryComponent},
   {path:"update-category", component:UpdateCategoryComponent},
-  { path: '', pathMatch: 'full', redirectTo: 'add-category' },
-  {path:"*", component:PageNotFoundComponent}]
+  {path:"speech", component:SpeechComponent},
+  {path:"stats1", component:Stats1Component},
+  {path:'', pathMatch: 'full', redirectTo: 'add-category'},
+  {path:"**", component:PageNotFoundComponent}]
 
 
 
@@ -35,13 +42,22 @@ const routes: Routes = [
     DisplayCategoryComponent,
     UpdateCategoryComponent,
     PageNotFoundComponent,
-    FooterComponent
+    FooterComponent,
+    CapsPipe,
+    SpeechComponent,
+    Stats1Component
   ],
   imports: [
     BrowserModule, 
     RouterModule.forRoot(routes,{useHash:true}), 
     HttpClientModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [DatabaseService],
   bootstrap: [AppComponent]

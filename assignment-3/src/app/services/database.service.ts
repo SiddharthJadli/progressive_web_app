@@ -11,22 +11,35 @@ const httpOptions = {
 export class DatabaseService {
 
     constructor(private http : HttpClient) {}
-    result : any;
+    // result : any;
 
-    getCategory() {
-        return this.http.get(`${backendBaseUrl}/list-category`)
-    }
 
     addCategory(aCategory : any) {
-        return this.http.post(`${backendBaseUrl}/add-category`, aCategory, httpOptions)
+        return this.http.post("/add-category", aCategory, httpOptions)
+    }
+    
+    getCategory() {
+        return this.http.get("/list-category")
     }
 
     deleteCategory(catId : string) {
-        return this.http.delete("/delete-category" + catId)
+        return this.http.delete("/delete-category" + catId, httpOptions)
     }
 
     updateCategory(catId : string, aCategory : any) {
         return this.http.put("/update-category", aCategory, httpOptions)
+    }
+
+    speech(text: string) {
+        return this.http.put("/speech", text, httpOptions)
+    }
+
+    getEventCount() {
+        return this.http.get("/stats1");
+    }
+
+    getCategoryCount() {
+        return this.http.get("/stats1");
     }
 
 

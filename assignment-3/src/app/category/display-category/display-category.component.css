@@ -1,0 +1,13 @@
+.container {
+    margin-top: 20px;
+}
+.table {
+    width: 100%;
+    margin: auto;
+
+}
+
+td {
+    padding: 20px;
+    vertical-align: top;
+}

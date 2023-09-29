@@ -9,9 +9,10 @@ import { Router } from "@angular/router";
   styleUrls: ['./update-category.component.css']
 })
 export class UpdateCategoryComponent implements OnInit{
+  CategoryID: string = "";
   name: string = "";
   description: string = "";
-  CategoryID: string = "";
+  image: string = "";
 
   categories : any[] = [];
 
@@ -26,13 +27,23 @@ export class UpdateCategoryComponent implements OnInit{
     }
   
     // Update an Category
-    onSelectUpdate(item: any) {
-      this.name = item.name;
-      this.description = item.description;
-      this.CategoryID = item._id;
+    onSelectUpdate(catId: string) {
+      console.log("Updating category...");
+
+      this.CategoryID = catId;
+      const selectedCat = this.categories.find(category =>category.catId===this.CategoryID);
+      if(selectedCat) {
+        this.name = selectedCat.name;
+        this.description = selectedCat.description;
+        this.image = selectedCat.image;
+      }
     }
     onUpdateCategory() {
-      this.categoryService.updateCategory(this.CategoryID, this.name).subscribe(result => {
+      let obj = { name: this.name, description: this.description, image: this.image };
+
+      this.categoryService.updateCategory(this.CategoryID, obj).subscribe(result => {
+        console.log("Category updated successfully:", result);
+
         this.onGetCategories();
         this.router.navigate(["/list-categories"]);
       });

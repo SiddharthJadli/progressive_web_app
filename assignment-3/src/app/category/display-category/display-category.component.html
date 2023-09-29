@@ -1,1 +1,68 @@
-<p>display-category works!</p>
+
+    <body>
+        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;">Display Category</h2>
+
+        <table>
+            <tbody>   
+                <tr>
+                    <td>Category ID:</td>
+                    <td>{{categories.catId }}</td>
+                </tr>
+
+                <tr>
+                    <td>Name:</td>
+                    <td>{{categories.name }}</td>
+                </tr>
+
+                <tr>
+                    <td>Description:</td>
+                    <td>{{categories.description }}</td>
+                </tr>
+
+                <tr>
+                    <td>Created Date Time:</td>
+                    <td>{{categories.createdAt }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="table1">
+            <table class="container m-3">
+                <thead> 
+                    <tr> 
+                        <th scope="col" >ID</th>
+                        <th scope="col" >Name</th>
+                        <th scope="col" >Start</th>
+                        <th scope="col" >End</th>
+                        <th scope="col" >Duration</th>
+                        <th scope="col" >Is Active</th>
+                        <th scope="col" >Capacity</th>
+                        <th scope="col" >Tickets Available</th>
+                        <th scope="col" >Actions</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let event of events">
+                    <ng-container *ngIf="event.categoriesID && categories.catId && event.categoriesID.split(', ').includes(categories.catId)">
+
+                            <tr> 
+                                <td>{{event.eventId }}</td>
+                                <td>{{event.name }}</td>
+                                <td>{{event.startTimeFormatted }}</td>
+                                <td>{{event.endTimeFormatted }}</td>
+                                <td>{{event.duration }}</td>
+                                <td>
+                                    <input type="checkbox" [disabled]="event.isActive !== true" [checked]="event.isActive === true">
+
+                                </td>
+                                <td>{{event.capacity }}</td>
+                                <td>{{event.availableTickets }}</td>
+                                <td>
+                                    <a [routerLink]="'/categories/33306036/show-event-details/' + event.eventId" class="btn btn-primary">View</a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                </tbody>
+            </table>
+        </div>  
+    </body>
+

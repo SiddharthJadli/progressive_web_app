@@ -1,14 +1,12 @@
 <!doctype html>
-
-<head>
-    <title>delete category by id</title>
-</head>
+<!DOCTYPE html>
+<html Lang="en">
 
 <body>
     <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Delete Category</h2>
 
     <div class="container m-8">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Category ID</th>
@@ -17,18 +15,43 @@
                     <th scope="col">Image</th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Events Count</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
+            <tbody>
+                <tr *ngIf="categories.length == 0">
+                    <td scope="row" colspan="8" class="text-center text-bold">No category found</td>
+                </tr>
 
-            <tr *ngFor="let item of categories">
-                <td>{{item.catId}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.description}}</td>
-                <td> <button class="btn btn-primary" (click)="onDeleteCategory(item)">Delete</button>
-                </td>
-            </tr>          
+                <tr *ngFor="let category of categories">
+                    <td>{{ category.catId }}</td>
+                    <td>{{ category.name | caps }}</td>
+                    <td>{{ category.description }}</td>
 
-        </table>
+                    <td>
+                        <img *ngIf="category.image"
+                            [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image"
+                            alt="Category Image" style="width: 500px; height: auto;" />
+                        <img *ngIf="!category.image" [src]="'/assets/Images/Categoryimg.png'" alt="Default Image"
+                            style="width: 500px; height: auto;" />
+                    </td>
+
+
+                    <td>{{ category.createdAtFormatted }}</td>
+                    <td>{{ category.eventsCount }}</td>
+
+
+                    <td>
+                        <div class="buttons-contain">
+                            <button class="btn btn-danger" (click)="onDeleteCategory(category)">Delete</button>
+                        </div>
+                    </td>
+                        
+
+    </tr>
+    </tbody>
+    </table>
     </div>
 </body>
+
+</html>
