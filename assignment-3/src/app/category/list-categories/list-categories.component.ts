@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {DatabaseService} from 'src/app/services/database.service';
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-list-categories', 
@@ -9,8 +10,7 @@ import {DatabaseService} from 'src/app/services/database.service';
 export class ListCategoriesComponent {
     categories : any = [];
 
-
-    constructor(private dbService : DatabaseService) {
+    constructor(private dbService : DatabaseService, private router: Router) {
         this.getCategories();
     }
 
@@ -23,5 +23,7 @@ export class ListCategoriesComponent {
         })
     }
 
+    onDisplayCategory(catId: string) {
+        this.router.navigate(['/display-category/', catId]);
   
-}
+}}

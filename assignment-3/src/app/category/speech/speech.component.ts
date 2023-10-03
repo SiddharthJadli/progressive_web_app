@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import{ io } from 'socket.io-client';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-speech',
@@ -9,12 +10,22 @@ import{ io } from 'socket.io-client';
 export class SpeechComponent {
   socket: any;
   text: string ='';
-
-  constructor() {
+  audio: string | undefined;
+  
+  constructor(private router: Router) {
     this.socket = io();
+    this.socket.on("text to speech successful", (data: any) => {
+      console.log("Setting this.audio");
+      
+      this.audio = data.audioFile;
+          
+    });
   }
 
   textToSpeech() {
-    this.socket.emit("textToSpeech", { text: this.text });  }
+    console.log("Emitting textToSpeech event");
+    this.socket.emit("textToSpeech", { text: this.text }); 
+
+   }
 }
       

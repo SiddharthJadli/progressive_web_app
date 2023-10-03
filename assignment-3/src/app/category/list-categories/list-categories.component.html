@@ -24,7 +24,7 @@
 
                 <tr *ngFor="let category of categories">
                     <td>{{ category.catId }}</td>
-                    <td>{{ category.name | caps }}</td>
+                    <td>{{ category.name | capital }}</td>
                     <td>{{ category.description }}</td>
 
                     <td>
@@ -35,15 +35,16 @@
                             style="width: 500px; height: auto;" />
                     </td>
 
-
                     <td>{{ category.createdAtFormatted }}</td>
                     <td>{{ category.eventsCount }}</td>
 
-
                     <td>
                         <div class="buttons-contain">
-                            <a [routerLink]="'/display-category'" class="btn btn-primary" role="button">display</a>
+                            <a [routerLink]="'/display-category/' + category.catId" class="btn btn-primary" role="button">display</a>
                         </div>
+                        <!-- <div class="buttons-contain">
+                            <button class="btn btn-warning" (click)="onDisplayCategory(category.catId)">Display</button>
+                        </div> -->
                     </td>
 
                 </tr>

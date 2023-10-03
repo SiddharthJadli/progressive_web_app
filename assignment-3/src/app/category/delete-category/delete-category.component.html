@@ -25,32 +25,25 @@
 
                 <tr *ngFor="let category of categories">
                     <td>{{ category.catId }}</td>
-                    <td>{{ category.name | caps }}</td>
+                    <td>{{ category.name | capital }}</td>
                     <td>{{ category.description }}</td>
-
                     <td>
                         <img *ngIf="category.image"
-                            [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image"
-                            alt="Category Image" style="width: 500px; height: auto;" />
-                        <img *ngIf="!category.image" [src]="'/assets/Images/Categoryimg.png'" alt="Default Image"
-                            style="width: 500px; height: auto;" />
+                            [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image" alt="Category Image" style="width: 500px; height: auto;"/>
+
+                        <img *ngIf="!category.image" [src]="'/assets/Images/Categoryimg.png'" alt="Default Image" style="width: 500px; height: auto;"/>
                     </td>
-
-
                     <td>{{ category.createdAtFormatted }}</td>
                     <td>{{ category.eventsCount }}</td>
 
-
                     <td>
                         <div class="buttons-contain">
-                            <button class="btn btn-danger" (click)="onDeleteCategory(category)">Delete</button>
+                            <button class="btn btn-danger" (click)="onDeleteCategory(category.catId)">Delete</button>
                         </div>
                     </td>
-                        
-
-    </tr>
-    </tbody>
-    </table>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 

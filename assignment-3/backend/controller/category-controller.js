@@ -6,9 +6,11 @@ module.exports = {
 
     addCategory: async (req, res) => {
         try {
+            
             console.log("Request body:", req.body);
             let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventsList: req.body.eventsList});
             await aCategory.save();
+            console.log("Category saved:", aCategory);
             res.status(200).json({category: aCategory.catId});
         } catch (error) {
             res.status(400).json({error: "Invalid Data"});
@@ -42,31 +44,42 @@ module.exports = {
         }
     },
 
+    displayCategory: async (req, res) => {
+        try {
+            let categoryID = req.params.catId;
+            let categories = await Category.find({catId: categoryID}).populate({path: 'categoryList', model: 'Category'});
+            res.json(categories);
+        } catch (error) {
+            res.status(400).json({error: "Invalid Data"});
+        }
+    },
+
+
     deletingCategory: async function (req, res) {
         try {
-            let categoryID = req.query.catId;
+            let categoryID = req.params.catId;
             let aCategory = await Category.findOne({catId: categoryID});
-            // console.log('Received categoryID:', categoryID);
-            // if (! aCategory) {
-            //     return res.status(404).json({"status": "Category not found"});
-            // }
-            // // finding events that have the categoryID
-            // const events = await Event.find({categoryList: aCategory._id});
+            console.log('Received categoryID:', categoryID);
+            if (! aCategory) {
+                return res.status(404).json({"status": "Category not found"});
+            }
+            // finding events that have the categoryID
+            const events = await Event.find({categoryList: aCategory._id});
 
-            // for (const event of events) { // finding event from events array,remove category from event's category list
-            //     const index = event.categoryList.indexOf(aCategory._id);
-            //     if (index !== -1) {
-            //         event.categoryList.splice(index, 1);
-            //         await event.save();
-            //     }
-            // }
-            // // deleting event and category
-            // const deletingEvent = events.map((event) => event._id);
-            // await Event.deleteMany({
-            //     _id: {
-            //         $in: deletingEvent
-            //     }
-            // });
+            for (const event of events) { // finding event from events array,remove category from event's category list
+                const index = event.categoryList.indexOf(aCategory._id);
+                if (index !== -1) {
+                    event.categoryList.splice(index, 1);
+                    await event.save();
+                }
+            }
+            // deleting event and category
+            const deletingEvent = events.map((event) => event._id);
+            await Event.deleteMany({
+                _id: {
+                    $in: deletingEvent
+                }
+            });
             const deletedCategory = await Category.deleteOne({_id: aCategory._id});
             statsController.incrementCounter('delete');
             res.status(200).json(deletedCategory);
@@ -105,4 +118,7 @@ module.exports = {
     }
 
   
+    
+  
+
 }

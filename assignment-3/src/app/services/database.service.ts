@@ -23,12 +23,13 @@ export class DatabaseService {
     }
 
     deleteCategory(catId : string) {
-        return this.http.delete("/delete-category" + catId, httpOptions)
+        return this.http.delete("/delete-category/" + catId, httpOptions)
     }
 
-    updateCategory(catId : string, aCategory : any) {
-        return this.http.put("/update-category", aCategory, httpOptions)
-    }
+    updateCategory(catId: string, updatedCategory: any) {
+        return this.http.put("/update-category/" + catId, updatedCategory, httpOptions);
+      }
+      
 
     speech(text: string) {
         return this.http.put("/speech", text, httpOptions)
@@ -41,6 +42,13 @@ export class DatabaseService {
     getCategoryCount() {
         return this.http.get("/stats1");
     }
+
+    displayCategory(catId : string) {
+        return this.http.get("/display-category/" + catId, httpOptions)
+
+    }
+
+    
 
 
 }
