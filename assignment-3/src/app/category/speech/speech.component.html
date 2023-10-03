@@ -14,9 +14,9 @@
                         placeholder="Enter text" rows="7"></textarea>
                 </div>
 
-
                 <button type="button" class="btn btn-success mt-4" (click)="textToSpeech()">Convert to Speech</button>
-
+                <!-- <audio controls src="audio"></audio> -->
+                <audio controls><source [src]="audio" type="output/mp3"></audio>
             </form>
         </div>
     </div>

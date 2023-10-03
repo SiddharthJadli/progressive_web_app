@@ -17,8 +17,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DatabaseService } from './services/database.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CapsPipe } from './caps.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { CapitalPipe } from './pipes/capital.pipe';
 
 const routes: Routes = [
   {path:"add-category", component:AddCategoryComponent},
@@ -43,9 +43,9 @@ const routes: Routes = [
     UpdateCategoryComponent,
     PageNotFoundComponent,
     FooterComponent,
-    CapsPipe,
     SpeechComponent,
-    Stats1Component
+    Stats1Component,
+    CapitalPipe
   ],
   imports: [
     BrowserModule, 

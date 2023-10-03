@@ -21,8 +21,8 @@ export class DeleteCategoryComponent implements OnInit {
     });
   }
 
-  onDeleteCategory(category: any) {
-    this.dbService.deleteCategory(category.catId).subscribe(result => {
+  onDeleteCategory(catId: string) {
+    this.dbService.deleteCategory(catId).subscribe(result => {
       this.onGetCategory();
       this.ngOnInit();
       this.router.navigate(["/list-categories"]);

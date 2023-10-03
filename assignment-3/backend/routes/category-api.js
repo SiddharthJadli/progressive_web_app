@@ -23,7 +23,7 @@ router.get("/list-category", categoryController.listCategory);
  * @name DELETE /delete-category
  * @function
  */
-// router.delete("/delete-category/:catId", categoryController.deletingCategory);
+router.delete("/delete-category/:catId", categoryController.deletingCategory);
 /**
  * Route for update a category.
  * @name PUT /update-category
@@ -36,5 +36,6 @@ router.put("/update-category", categoryController.updateCategory);
  * @function
  */
 router.post("/addEventToCategory", categoryController. addEventToCategory);
+router.get("/display-category/:catId", categoryController.displayCategory);
 
 module.exports = router;

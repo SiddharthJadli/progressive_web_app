@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'caps'
+  name: 'capital'
 })
-export class CapsPipe implements PipeTransform {
+export class CapitalPipe implements PipeTransform {
 
   transform(value: string): string {
     if(value) {
@@ -13,4 +13,3 @@ export class CapsPipe implements PipeTransform {
   }
 
 }
-// <p>{{  | caps }}</p>

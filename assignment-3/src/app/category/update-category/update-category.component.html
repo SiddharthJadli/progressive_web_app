@@ -9,23 +9,27 @@
     <div *ngIf="categories.length>0">
       <h6>Select one of the category to update</h6>
 
+      <form>
 
-      <form (Submit)="onUpdateCategory()">
-        <div class="form-group">
+        <div class="form-group mb-4">
           <label for="name">Category Name</label>
           <input type="text" class="form-control" id="name" [(ngModel)]="name">
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-4">
           <label for="description">Description</label>
           <input type="text" class="form-control" id="description" [(ngModel)]="description">
         </div>
 
-        <div class="form-group">
-          <label for="image">Image</label>
-          <input type="text" class="form-control" id="image" [(ngModel)]="image">
+        <div class="form-group mb-4">
+          <label for="Image">Image</label>
+          <input type="text" [(ngModel)]="image" class="form-control" id="image"
+            placeholder="Enter Static Resource Path">
+          <!-- <label for="image">Image</label>
+          <input type="text" class="form-control" id="image" [(ngModel)]="image"> -->
         </div>
-        <button type="submit" class="btn btn-warning my-2">Update Category</button>
+        <button class="btn btn-success" (click)="onUpdateCategory()">Update Category</button>
+
       </form>
     </div>
     <hr>
@@ -40,24 +44,15 @@
       </tr>
       <tr *ngFor="let category of categories">
         <td>{{category.catId}}</td>
-        <td>{{category.name | caps}}</td>
+        <td>{{category.name | capital}}</td>
         <td>
-          <img 
-          *ngIf="category.image"
+          <img *ngIf="category.image"
             [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image"
-            alt="Category Image" 
-            style="width: 500px; height: auto;" 
-            />
-          <img *ngIf="!category.image" 
-          [src]="'/assets/Images/Categoryimg.png'" 
-          alt="Default Image"
-          style="width: 500px; height: auto;"
-           />
-          
+            alt="Category Image" style="width: 500px; height: auto;" />
         </td>
         <td>{{category.createdAtFormatted}}</td>
         <td>
-          <button class="btn btn-primary" (click)="onSelectUpdate(category.catId)">Select</button>
+          <button class="btn" [ngClass]="{ 'btn-primary': category == selectedCategory, 'btn-secondary': category !== selectedCategory }"(click)="onSelectUpdate(category)">Select</button>
         </td>
       </tr>
     </table>
