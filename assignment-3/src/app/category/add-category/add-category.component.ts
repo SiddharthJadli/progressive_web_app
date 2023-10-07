@@ -11,9 +11,10 @@ export class AddCategoryComponent {
   name: string = "";
   description: string = "";
   image: string = "";
+  
   constructor(private dbService:DatabaseService, private router: Router){}
 
-//   //create category object
+  //create category object
   saveCategory() {
     let categoryObj = {
       name: this.name,
@@ -27,4 +28,3 @@ export class AddCategoryComponent {
     })
   }
 }
-//1.09 in wk9 lect

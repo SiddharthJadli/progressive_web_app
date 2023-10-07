@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {DatabaseService} from 'src/app/services/database.service';
 
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 
 @Component({
@@ -16,10 +16,7 @@ export class Stats1Component {
     numbers: Array<number> = [];
 
 
-    constructor(private dbService : DatabaseService, ) {
-        this.socket = io();
-
-    }
-
-    
-  }
+    // constructor(private dbService : DatabaseService, ) {
+    //     this.socket = io();
+    // }
+}

@@ -1,8 +1,8 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-
 import { AppComponent } from './app.component';
+
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { ListCategoriesComponent } from './category/list-categories/list-categories.component';
 import { DeleteCategoryComponent } from './category/delete-category/delete-category.component';
@@ -17,8 +17,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DatabaseService } from './services/database.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ServiceWorkerModule } from '@angular/service-worker';
+// import { ServiceWorkerModule } from '@angular/service-worker';
 import { CapitalPipe } from './pipes/capital.pipe';
+
+import { AddEventComponent } from './event/add-event/add-event.component';
+import { DeleteEventComponent } from './event/delete-event/delete-event.component';
+import { ListAllEventsComponent } from './event/list-all-events/list-all-events.component';
 
 const routes: Routes = [
   {path:"add-category", component:AddCategoryComponent},
@@ -28,10 +32,12 @@ const routes: Routes = [
   {path:"update-category", component:UpdateCategoryComponent},
   {path:"speech", component:SpeechComponent},
   {path:"stats1", component:Stats1Component},
+  {path:"add-event", component:AddEventComponent},
+  {path:"list-events", component:ListAllEventsComponent},
+  {path:"delete-event", component:DeleteEventComponent},
   {path:'', pathMatch: 'full', redirectTo: 'add-category'},
-  {path:"**", component:PageNotFoundComponent}]
-
-
+  {path:"**", component:PageNotFoundComponent}
+]
 
 @NgModule({
   declarations: [
@@ -45,19 +51,22 @@ const routes: Routes = [
     FooterComponent,
     SpeechComponent,
     Stats1Component,
-    CapitalPipe
+    CapitalPipe,
+    AddEventComponent,
+    DeleteEventComponent,
+    ListAllEventsComponent
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     RouterModule.forRoot(routes,{useHash:true}), 
     HttpClientModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: !isDevMode(),
+    //   // Register the ServiceWorker as soon as the application is stable
+    //   // or after 30 seconds (whichever comes first).
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // }),
   ],
   providers: [DatabaseService],
   bootstrap: [AppComponent]

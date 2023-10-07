@@ -14,15 +14,17 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require("path");
 const fs = require("fs");
-const textToSpeech = require('@google-cloud/text-to-speech');
-const client = new textToSpeech.TextToSpeechClient();
+// const textToSpeech = require('@google-cloud/text-to-speech');
+// const client = new textToSpeech.TextToSpeechClient();
 
 
 const Operation = require("./backend/models/operation");
 const url = "mongodb://127.0.0.1:27017/assignment02";
+
 // express will serve angular as a static asset
 app.use(express.static(path.join(__dirname, "dist/assignment-3")));
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.get("/assignment-3", (req, res) => {});
 
 
@@ -71,83 +73,86 @@ io.on("connection", (socket) => {
 });
 
 
-
-    // app.use(express.urlencoded({extended: true}));
-    /**
- * Asynchronous function to initialize operation counters.
- */
-    async function asyncCall() {
-        let existingAddOperation = await Operation.findOne({operation: "add"});
-        if (! existingAddOperation) {
-            let anOperation = new Operation({operation: "add"});
-            await anOperation.save();
-        } else {
-            await Operation.findOneAndUpdate({
-                operation: "add"
-            }, {counter: 0});
-        }
-        let existingUpdateOperation = await Operation.findOne({operation: "update"});
-        if (! existingUpdateOperation) {
-            let anOperation = new Operation({operation: "update"});
-            await anOperation.save();
-        } else {
-            await Operation.findOneAndUpdate({
-                operation: "update"
-            }, {counter: 0});
-        }
-        let existingDeleteOperation = await Operation.findOne({operation: "delete"});
-        if (! existingDeleteOperation) {
-            let anOperation = new Operation({operation: "delete"});
-            await anOperation.save();
-        } else {
-            await Operation.findOneAndUpdate({
-                operation: "delete"
-            }, {counter: 0});
-        }
+/**
+* Asynchronous function to initialize operation counters.
+*/
+async function asyncCall() {
+    let existingAddOperation = await Operation.findOne({operation: "add"});
+    if (! existingAddOperation) {
+        let anOperation = new Operation({operation: "add"});
+        await anOperation.save();
+    } else {
+        await Operation.findOneAndUpdate({
+            operation: "add"
+        }, {counter: 0});
     }
-    asyncCall();
+    let existingUpdateOperation = await Operation.findOne({operation: "update"});
+    if (! existingUpdateOperation) {
+        let anOperation = new Operation({operation: "update"});
+        await anOperation.save();
+    } else {
+        await Operation.findOneAndUpdate({
+            operation: "update"
+        }, {counter: 0});
+    }
+    let existingDeleteOperation = await Operation.findOne({operation: "delete"});
+    if (! existingDeleteOperation) {
+        let anOperation = new Operation({operation: "delete"});
+        await anOperation.save();
+    } else {
+        await Operation.findOneAndUpdate({
+            operation: "delete"
+        }, {counter: 0});
+    }
+}
 
-    /**
+asyncCall();
+
+/**
  * Require and use the event, category, original router.
  */
-    // const eventRouter = require("./backend/routes/event-api");
-    // app.use("/sidd/api/v1", eventRouter);
+// const eventRouter = require("./backend/routes/event-api");
+// app.use("/sidd/api/v1", eventRouter);
 
-    // const categoryRouter = require("./backend/routes/category-api");
-    // // C:\Users\Jade\Downloads\ass3\assignment-3\backend\routes\category-api.js
-    // app.use("/api/v1/category/33306036", categoryRouter);
-
-
-    const catCont = require("./backend/controller/category-controller");
-    app.post("/add-category", catCont.addCategory);
-    app.get("/list-category", catCont.listCategory);
-    app.delete("/delete-category/:catId", catCont.deletingCategory);
-    app.put("/update-category/:catId", catCont.updateCategory);
-    app.get("/display-category/:catId", catCont.displayCategory);
+// const categoryRouter = require("./backend/routes/category-api");
+// app.use("./api/v1/category/33306036", categoryRouter);
 
 
+const catCont = require("./backend/controller/category-controller");
+app.post("/add-category", catCont.addCategory);
+app.get("/list-category", catCont.listCategory);
+app.delete("/delete-category/:catId", catCont.deletingCategory);
+app.put("/update-category/:catId", catCont.updateCategory);
+app.get("/display-category/:catId", catCont.displayCategory);
 
-    // for labels in html
-    const counters = require("./backend/routes/operation-api");
-    app.use("/count", counters);
+const eventCont = require("./backend/controller/event-controller")
+app.post("/add-event", eventCont.insertEvent);
+app.get("/events", eventCont.listEvents);
+app.delete("/delete-event/:eventId", eventCont.deleteEvent);
+app.put("/update-category/:eventId", eventCont.updateEvent);
+app.get("/display-event/:eventId", eventCont.displayEvent);
 
-    /**
+// for labels in html
+const counters = require("./backend/routes/operation-api");
+app.use("/count", counters);
+
+/**
  * Asynchronous function to connect to the MongoDB database.
  * @param {string} url - The MongoDB connection URL.
  * @returns {string} - A message indicating the connection status.
  */
-    async function connect(url) {
-        await mongoose.connect(url);
-        return "Connected Successfully";
-    }
+async function connect(url) {
+    await mongoose.connect(url);
+    return "Connected Successfully";
+}
 
-    const PORT_NUMBER = 8080;
+const PORT_NUMBER = 8080;
 
-    connect(url).then(() => {
-        server.listen(PORT_NUMBER, () => {
-            console.log("Server is listening on port 8080");
-        });
-    }).catch((err) => console.log(err));
+connect(url).then(() => {
+    server.listen(PORT_NUMBER, () => {
+        console.log("Server is listening on port 8080");
+    });
+}).catch((err) => console.log(err));
 
 
     // app.get("/" , async function (req, res) {

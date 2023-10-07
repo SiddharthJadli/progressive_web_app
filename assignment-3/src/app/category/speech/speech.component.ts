@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import{ io } from 'socket.io-client';
+// import{ io } from 'socket.io-client';
 import { Router } from "@angular/router";
 
 @Component({
@@ -12,15 +12,15 @@ export class SpeechComponent {
   text: string ='';
   audio: string | undefined;
   
-  constructor(private router: Router) {
-    this.socket = io();
-    this.socket.on("text to speech successful", (data: any) => {
-      console.log("Setting this.audio");
+  // constructor(private router: Router) {
+  //   this.socket = io();
+  //   this.socket.on("text to speech successful", (data: any) => {
+  //     console.log("Setting this.audio");
       
-      this.audio = data.audioFile;
+  //     this.audio = data.audioFile;
           
-    });
-  }
+  //   });
+  // }
 
   textToSpeech() {
     console.log("Emitting textToSpeech event");

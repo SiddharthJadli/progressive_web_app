@@ -8,12 +8,10 @@ const httpOptions = {
 };
 
 @Injectable({providedIn: 'root'})
-export class DatabaseService {
 
+export class DatabaseService {
     constructor(private http : HttpClient) {}
     // result : any;
-
-
     addCategory(aCategory : any) {
         return this.http.post("/add-category", aCategory, httpOptions)
     }
@@ -28,8 +26,7 @@ export class DatabaseService {
 
     updateCategory(catId: string, updatedCategory: any) {
         return this.http.put("/update-category/" + catId, updatedCategory, httpOptions);
-      }
-      
+    }
 
     speech(text: string) {
         return this.http.put("/speech", text, httpOptions)
@@ -45,10 +42,25 @@ export class DatabaseService {
 
     displayCategory(catId : string) {
         return this.http.get("/display-category/" + catId, httpOptions)
-
     }
 
+    addEvent(anEvent : any) {
+        return this.http.post("/add-event", anEvent, httpOptions)
+    }
     
+    getEvents() {
+        return this.http.get("/events")
+    }
 
+    deleteEvent(eventId : string) {
+        return this.http.delete("/delete-event/" + eventId, httpOptions)
+    }
 
+    updateEvent(eventId: string, updatedEvent: any) {
+        return this.http.put("/update-event/" + eventId, updatedEvent, httpOptions);
+    }
+
+    displayEvent(eventId : string) {
+        return this.http.get("/display-event/" + eventId, httpOptions)
+    }
 }

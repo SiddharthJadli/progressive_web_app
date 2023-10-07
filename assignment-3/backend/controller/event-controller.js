@@ -4,26 +4,30 @@ const statsController = require("../controller/stats")
 
 module.exports = {
 	insertEvent: async function (req, res) {
-		let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, availableTickets: req.body.availableTickets, categories: req.body.categories});   
+		try {
+            let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, availableTickets: req.body.availableTickets, categories: req.body.categories});   
         
-        //Splitting user input
-        let categoryIDList = req.body.categories.split(",");
-        
-        let i=0;
-        //Removing any whitespace in the array elements
-        categoryIDList.forEach(categoryID => {
-            categoryIDList[i] = categoryID.trim();
-            i++;
-        });
+            //Splitting user input
+            let categoryIDList = req.body.categories.split(",");
+            
+            let i=0;
+            //Removing any whitespace in the array elements
+            categoryIDList.forEach(categoryID => {
+                categoryIDList[i] = categoryID.trim();
+                i++;
+            });
 
-        const category = await Category.find({catId: {$in: categoryIDList}});
-        anEvent.categoryList = category;
+            const category = await Category.find({catId: {$in: categoryIDList}});
+            anEvent.categoryList = category;
 
-        await anEvent.save();
+            await anEvent.save();
 
-        statsController.incrementCounter('add');
+            statsController.incrementCounter('add');
 
-		res.json(anEvent.eventId);
+            res.json(anEvent.eventId);
+        } catch{
+            res.status(400).json({error: "Invalid Data"});
+        }
 	},
 
     listEvents: async function (req, res) {
@@ -32,44 +36,62 @@ module.exports = {
     },
 
     updateEvent: async function (req, res) {
-		let eventID = req.body.eventID;
-        let name = req.body.name;
-        let capacity = req.body.capacity;
+		try{
+            let eventID = req.body.eventID;
+            let name = req.body.name;
+            let capacity = req.body.capacity;
 
-        if(await Event.findOne({eventId: eventID}) == null){
-            res.status(404).json({
-                "status": "Event ID not found",
-            })
-        } else {
-            let updatedEvent = await Event.findOneAndUpdate({eventId: eventID},{name: name, capacity: capacity});
+            if(await Event.findOne({eventId: eventID}) == null){
+                res.status(404).json({
+                    "status": "Event ID not found",
+                })
+            } else {
+                let updatedEvent = await Event.findOneAndUpdate({eventId: eventID},{name: name, capacity: capacity});
 
-            statsController.incrementCounter('update');
+                statsController.incrementCounter('update');
 
-            res.status(200).json({
-                "status": "updated successfully"
-            })
+                res.status(200).json({
+                    "status": "updated successfully"
+                })
+            }
+        } catch{
+            res.status(400).json({error: "Invalid Data"});
         }
     },
 
 	deleteEvent: async function (req, res) {
-		let eventID = req.body.eventID;
-        let anEvent = await Event.findOne({eventId: eventID});
+		try {
+            let eventID = req.body.eventID;
+            let anEvent = await Event.findOne({eventId: eventID});
 
-        anEvent.categoryList.forEach(async (catID) => {
-            let category = await Category.findOne({ _id: catID });
-            
-            for (let i=0; category.eventsList.length; i++){
-                if (category.eventsList[i] == anEvent._id){
-                    category.eventsList.splice(i,1);
-                    break;
+            anEvent.categoryList.forEach(async (catID) => {
+                let category = await Category.findOne({ _id: catID });
+                
+                for (let i=0; category.eventsList.length; i++){
+                    if (category.eventsList[i] == anEvent._id){
+                        category.eventsList.splice(i,1);
+                        break;
+                    }
                 }
-            }
-        })
+            })
 
-	    let deletedEvent = await Event.deleteOne(anEvent._id);  
+            let deletedEvent = await Event.deleteOne(anEvent._id);  
 
-        statsController.incrementCounter('delete');
-        
-        res.status(200).json(deletedEvent)
-    }
+            statsController.incrementCounter('delete');
+            
+            res.status(200).json(deletedEvent)
+        } catch {
+            res.status(400).json({error: "Invalid Data"});
+        } 
+    },
+
+    displayEvent: async (req, res) => {
+        try {
+            let eventID = req.params.eventId;
+            let anEvent = await Event.find({eventID: eventID}).populate({path: 'categoryList', model: 'Category'});
+            res.json(anEvent);
+        } catch (error) {
+            res.status(400).json({error: "Invalid Data"});
+        }
+    },
 }

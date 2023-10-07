@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html Lang="en">
+    <body>
+        <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Event List</h2>
+    
+        <div class="container m-3">
+            <table class="table">
+                <thead> 
+                    <tr> 
+                        <th scope="col">Event ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Is Active</th>
+                        <th scope="col">Capacity</th>
+                        <th scope="col">Tickets Available</th>
+                        <th scope="col">Category ID</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="events.length == 0">
+                        <td scope="row" colspan="8"class="text-center text-bold">No events found</td>
+                    </tr>
+
+                    <tr *ngFor="let event of events">
+                        <td>{{ event.eventId }}</td>
+                        <td>{{ event.name | capital }}</td>
+                        <td>{{ event.startTimeFormatted }}</td>
+                        <td>{{ event.endTimeFormatted }}</td>
+                        <td>{{ event.duration }}</td>
+                        <td>
+                            <div *ngIf="event.isActive == true; else elseBlock">
+                                <input type="checkbox" disabled="disabled" checked>
+                            </div>
+                            <ng-template #elseBlock>
+                                <input type="checkbox" disabled="disabled">
+                            </ng-template>
+                        </td>
+                        <td>{{ event.capacity }}</td>
+                        <td>{{ event.availableTickets }}</td>
+                        <td>{{ event.categoryID }}</td>
+                        
+                        <td>
+                            <div class="buttons-contain">
+                                <a [routerLink]="'/display-event/' + event.eventId" class="btn btn-primary" role="button">display</a>
+                            </div>
+                        </td>    
+                    </tr>    
+                </tbody>
+            </table>
+        </div>    
+    </body>
+</html>

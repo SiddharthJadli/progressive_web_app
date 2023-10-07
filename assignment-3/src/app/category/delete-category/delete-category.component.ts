@@ -28,6 +28,7 @@ export class DeleteCategoryComponent implements OnInit {
       this.router.navigate(["/list-categories"]);
     });
   }
+  
   ngOnInit() {
     this.onGetCategory();
   }

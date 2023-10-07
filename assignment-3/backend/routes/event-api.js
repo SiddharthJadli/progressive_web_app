@@ -36,7 +36,7 @@ router.get("/events", eventController.listEvents);
  * @param {string} path 
  * @param {function} middleware - Middleware function for updating an event.
  */
-router.put("/update-event", eventController.updateEvent);
+router.put("/update-event/:eventId", eventController.updateEvent);
 /**
  * Route for deleting an event.
  * @name DELETE /delete-event
@@ -45,11 +45,13 @@ router.put("/update-event", eventController.updateEvent);
  * @param {string} path 
  * @param {function} middleware - Middleware function for deleting an event.
  */
-router.delete("/delete-event", eventController.deleteEvent);
+router.delete("/delete-event/:eventId", eventController.deleteEvent);
 /**
  * Exports the Express router for events.
  * @type {object}
  * @exports module:routes/eventRouter
  */
+
+router.get("/display-event/:eventId", eventController.displayEvent);
 
 module.exports = router;
