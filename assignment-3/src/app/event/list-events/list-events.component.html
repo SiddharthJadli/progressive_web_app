@@ -10,12 +10,11 @@
                         <th scope="col">Event ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Start</th>
-                        <th scope="col">End</th>
                         <th scope="col">Duration</th>
                         <th scope="col">Is Active</th>
                         <th scope="col">Capacity</th>
                         <th scope="col">Tickets Available</th>
-                        <th scope="col">Category ID</th>
+                        <th scope="col">Categories</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -28,8 +27,7 @@
                         <td>{{ event.eventId }}</td>
                         <td>{{ event.name | capital }}</td>
                         <td>{{ event.startTimeFormatted }}</td>
-                        <td>{{ event.endTimeFormatted }}</td>
-                        <td>{{ event.duration }}</td>
+                        <td>{{ event.duration | formatMinutes }}</td>
                         <td>
                             <div *ngIf="event.isActive == true; else elseBlock">
                                 <input type="checkbox" disabled="disabled" checked>
@@ -40,6 +38,7 @@
                         </td>
                         <td>{{ event.capacity }}</td>
                         <td>{{ event.availableTickets }}</td>
+                        <!-- These should be buttons with the name of category as the name of the button -->
                         <td>{{ event.categoryID }}</td>
                         
                         <td>

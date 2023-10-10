@@ -7,7 +7,6 @@
                 <h4>Add Event</h4>
                 <p>Fill in event details and click submit</p>
 
-                <form>
                     <div class="form-group mb-4">
                         <label for="Name">Name</label>
                         <input type="text" [(ngModel)]="name" class="form-control" id="name" placeholder="Enter event name" required>
@@ -50,14 +49,14 @@
                     </div>
                         
                     <div class="form-group mb-4">
-                        <label for="CategoryID">Category ID</label>
+                        <label for="CategoryID">Category ID(s)</label>
                         <input type="text" [(ngModel)]="categoryID" class="form-control" id="categoryID" placeholder="Enter category id" required>
+                        Specify multiple ids serparated by commas. eg: CME-1234,CME-4567
                     </div>
                         
                     <div>
                         <button class="btn btn-primary" (click)="saveEvent()">Add Event</button>
                     </div>
-                </form>
             </div>
         </div>
     </body>

@@ -25,7 +25,8 @@ module.exports = {
             statsController.incrementCounter('add');
 
             res.json(anEvent.eventId);
-        } catch{
+        } catch(err){
+            console.log(err.message);
             res.status(400).json({error: "Invalid Data"});
         }
 	},
@@ -60,30 +61,34 @@ module.exports = {
     },
 
 	deleteEvent: async function (req, res) {
-		try {
-            let eventID = req.body.eventID;
-            let anEvent = await Event.findOne({eventId: eventID});
-
-            anEvent.categoryList.forEach(async (catID) => {
-                let category = await Category.findOne({ _id: catID });
-                
-                for (let i=0; category.eventsList.length; i++){
-                    if (category.eventsList[i] == anEvent._id){
-                        category.eventsList.splice(i,1);
-                        break;
-                    }
+        try {
+            let eventID = req.params.eventId; 
+    
+            let anEvent = await Event.findOne({ eventId: eventID });
+    
+            // Remove the event from the associated categories
+            for (let i = 0; i < anEvent.categoryList.length; i++) {
+                let categoryID = anEvent.categoryList[i];
+                let category = await Category.findById(categoryID);
+    
+                if (category) {
+                    category.eventsList = category.eventsList.filter(
+                        (eventId) => eventId.toString() !== anEvent._id.toString()
+                    );
+                    await category.save();
                 }
-            })
-
-            let deletedEvent = await Event.deleteOne(anEvent._id);  
-
+            }
+    
+            let deletedEvent = await Event.deleteOne({ eventId: eventID });
+    
             statsController.incrementCounter('delete');
-            
-            res.status(200).json(deletedEvent)
+    
+            res.status(200).json(deletedEvent);
         } catch {
-            res.status(400).json({error: "Invalid Data"});
-        } 
+            res.status(400).json({ error: "Invalid Data" });
+        }
     },
+    
 
     displayEvent: async (req, res) => {
         try {

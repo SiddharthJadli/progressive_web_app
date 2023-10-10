@@ -6,7 +6,6 @@ module.exports = {
 
     addCategory: async (req, res) => {
         try {
-            
             console.log("Request body:", req.body);
             let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventsList: req.body.eventsList});
             await aCategory.save();

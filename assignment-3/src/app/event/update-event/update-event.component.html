@@ -1,0 +1,53 @@
+<h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Update Event</h2>
+
+<div class="container m-8">
+  <div *ngIf="events.length == 0">
+    <p class="text-center font-weight-bold">No events found</p>
+  </div>
+
+  <div *ngIf="events.length > 0">
+    <h6>Select an event to update:</h6>
+
+    
+      <div class="form-group mb-4">
+        <label for="name">Event Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="name">
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="capacity">Capacity</label>
+        <input type="number" class="form-control" id="capacity" [(ngModel)]="capacity">
+      </div>
+
+      <button class="btn btn-success" (click)="onUpdateEvent()">Update</button>
+  </div>
+
+  <hr>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Event ID</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Start</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.eventId }}</td>
+        <td>{{ event.name | capital }}</td>
+        <td>
+          <img *ngIf="event.image"
+            [src]="event.image.startsWith('/') ? event.image : '/assets/Images/' + event.image"
+            alt="Event Image" style="width: 500px; height: auto;" />
+        </td>
+        <td>{{ event.startTimeFormatted }}</td>
+        <td>
+          <button class="btn" [ngClass]="{ 'btn-primary': event == selectedEvent, 'btn-secondary': event !== selectedEvent }" (click)="onSelectUpdate(event)">Select</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

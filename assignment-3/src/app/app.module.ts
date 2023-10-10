@@ -22,7 +22,11 @@ import { CapitalPipe } from './pipes/capital.pipe';
 
 import { AddEventComponent } from './event/add-event/add-event.component';
 import { DeleteEventComponent } from './event/delete-event/delete-event.component';
-import { ListAllEventsComponent } from './event/list-all-events/list-all-events.component';
+import { ListEventsComponent } from './event/list-events/list-events.component';
+import { InvalidDataComponent } from './event/invalid-data/invalid-data.component';
+import { UpdateEventComponent } from './event/update-event/update-event.component';
+import { FormatMinutesPipe } from './pipes/format-minutes.pipe';
+import { OperationsComponent } from './event/operations/operations.component';
 
 const routes: Routes = [
   {path:"add-category", component:AddCategoryComponent},
@@ -33,8 +37,12 @@ const routes: Routes = [
   {path:"speech", component:SpeechComponent},
   {path:"stats1", component:Stats1Component},
   {path:"add-event", component:AddEventComponent},
-  {path:"list-events", component:ListAllEventsComponent},
+  {path:"invalid-data", component:InvalidDataComponent},
+  {path:"list-events", component:ListEventsComponent},
   {path:"delete-event", component:DeleteEventComponent},
+  {path:"update-event", component:UpdateEventComponent},
+  // {path:"delete-event", component:tranl},
+  {path:"operations", component:OperationsComponent},
   {path:'', pathMatch: 'full', redirectTo: 'add-category'},
   {path:"**", component:PageNotFoundComponent}
 ]
@@ -54,7 +62,11 @@ const routes: Routes = [
     CapitalPipe,
     AddEventComponent,
     DeleteEventComponent,
-    ListAllEventsComponent
+    ListEventsComponent,
+    InvalidDataComponent,
+    UpdateEventComponent,
+    FormatMinutesPipe,
+    OperationsComponent
   ],
   imports: [
     BrowserModule,

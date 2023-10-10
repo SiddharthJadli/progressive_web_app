@@ -63,4 +63,16 @@ export class DatabaseService {
     displayEvent(eventId : string) {
         return this.http.get("/display-event/" + eventId, httpOptions)
     }
+
+    getAddCount() {
+        return this.http.get("/addcount", httpOptions)
+    }
+
+    getUpdateCount() {
+        return this.http.get("/updatecount", httpOptions);
+    }
+
+    getDeleteCount() {
+        return this.http.get("/deletecount", httpOptions)
+    }
 }

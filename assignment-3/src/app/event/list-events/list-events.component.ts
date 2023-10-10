@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
-  selector: 'app-list-all-events',
-  templateUrl: './list-all-events.component.html',
-  styleUrls: ['./list-all-events.component.css']
+  selector: 'app-list-events',
+  templateUrl: './list-events.component.html',
+  styleUrls: ['./list-events.component.css']
 })
 
-export class ListAllEventsComponent {
+export class ListEventsComponent {
   events : any = [];
 
   constructor(private dbService : DatabaseService, private router: Router) {
