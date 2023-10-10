@@ -12,6 +12,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SpeechComponent } from './category/speech/speech.component';
 import { Stats1Component } from './category/stats1/stats1.component';
 
+
+
 import {RouterModule, Routes} from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { DatabaseService } from './services/database.service';
@@ -32,7 +34,8 @@ const routes: Routes = [
   {path:"add-category", component:AddCategoryComponent},
   {path:"list-categories", component:ListCategoriesComponent},
   {path:"delete-category", component:DeleteCategoryComponent},
-  {path:"display-category", component:DisplayCategoryComponent},
+  {path:"display-category/:catId", component:DisplayCategoryComponent},
+  {path:"display-category/", component:DisplayCategoryComponent},
   {path:"update-category", component:UpdateCategoryComponent},
   {path:"speech", component:SpeechComponent},
   {path:"stats1", component:Stats1Component},
@@ -43,6 +46,8 @@ const routes: Routes = [
   {path:"update-event", component:UpdateEventComponent},
   // {path:"delete-event", component:tranl},
   {path:"operations", component:OperationsComponent},
+
+
   {path:'', pathMatch: 'full', redirectTo: 'add-category'},
   {path:"**", component:PageNotFoundComponent}
 ]
@@ -60,6 +65,8 @@ const routes: Routes = [
     SpeechComponent,
     Stats1Component,
     CapitalPipe,
+    
+ ,
     AddEventComponent,
     DeleteEventComponent,
     ListEventsComponent,

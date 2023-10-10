@@ -1,44 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {DatabaseService} from 'src/app/services/database.service';
-import { Router } from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({selector: 'app-display-category', templateUrl: './display-category.component.html', styleUrls: ['./display-category.component.css']})
 export class DisplayCategoryComponent implements OnInit {
     categories : any = [];
     events : any = [];
-    displayedCategory: any;
 
-    constructor(private dbService : DatabaseService, private router: Router) {}
+
+    constructor(private dbService : DatabaseService, private router : ActivatedRoute) {}
+
     ngOnInit() {
-      this.onGetCategory();
-      // this.getEvents();
+        const catId = this.router.snapshot.paramMap.get('catId');
+        console.log('catId:', catId);
+        if (catId) {
+            this.onDisplayCategory(catId);
+        }
     }
-        
-    
-    onGetCategory() {
-      console.log("from onGetCategory");
-      return this.dbService.getCategory().subscribe((data: any) => {
-        this.categories = data;
-      });
-    }
-    
-    onDisplayCategory(catId: string) {
-      this.dbService.displayCategory(catId).subscribe(result => {
-        this.onGetCategory();
-        this.ngOnInit();
-      });
-    }
-    
-  
 
-        // getEvents() {
-        // this.dbService.getEvent().subscribe({
-        //       next: (data: any) => {
-        //           this.events = data;
-        //       },
-        //       error: (err)=> {}
-        // });
-        // }
+    onDisplayCategory(catId : string) { // Fetch both category and event data
+        this.dbService.displayCategory(catId).subscribe((data : any) => {
+            console.log(data);
+    //.category because in backend, json receiving category & event
 
+            this.categories = data.category;
+            this.events = data.event;
+        });
     }
+}
