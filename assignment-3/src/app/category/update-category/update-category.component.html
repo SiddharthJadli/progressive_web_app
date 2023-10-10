@@ -14,6 +14,8 @@
         <div class="form-group mb-4">
           <label for="name">Category Name</label>
           <input type="text" class="form-control" id="name" [(ngModel)]="name">
+          <div *ngIf="!alphanumericName()" class="text-danger">Name must be alphanumeric!</div>
+
         </div>
 
         <div class="form-group mb-4">
@@ -21,13 +23,6 @@
           <input type="text" class="form-control" id="description" [(ngModel)]="description">
         </div>
 
-        <div class="form-group mb-4">
-          <label for="Image">Image</label>
-          <input type="text" [(ngModel)]="image" class="form-control" id="image"
-            placeholder="Enter Static Resource Path">
-          <!-- <label for="image">Image</label>
-          <input type="text" class="form-control" id="image" [(ngModel)]="image"> -->
-        </div>
         <button class="btn btn-success" (click)="onUpdateCategory()">Update Category</button>
 
       </form>
@@ -38,21 +33,17 @@
       <tr>
         <th>Category ID</th>
         <th>Name</th>
-        <th>Image</th>
         <th>Created Date</th>
         <th>Select</th>
       </tr>
       <tr *ngFor="let category of categories">
         <td>{{category.catId}}</td>
         <td>{{category.name | capital}}</td>
-        <td>
-          <img *ngIf="category.image"
-            [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image"
-            alt="Category Image" style="width: 500px; height: auto;" />
-        </td>
         <td>{{category.createdAtFormatted}}</td>
         <td>
-          <button class="btn" [ngClass]="{ 'btn-primary': category == selectedCategory, 'btn-secondary': category !== selectedCategory }"(click)="onSelectUpdate(category)">Select</button>
+          <button class="btn"
+            [ngClass]="{ 'btn-primary': category == selectedCategory, 'btn-secondary': category !== selectedCategory }"
+            (click)="onSelectUpdate(category)">Select</button>
         </td>
       </tr>
     </table>

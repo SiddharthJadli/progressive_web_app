@@ -40,11 +40,9 @@
 
                     <td>
                         <div class="buttons-contain">
-                            <a [routerLink]="'/display-category/' + category.catId" class="btn btn-primary" role="button">display</a>
+                            <a [routerLink]="['/display-category/', category.catId]" class="btn btn-primary" role="button">display</a>
                         </div>
-                        <!-- <div class="buttons-contain">
-                            <button class="btn btn-warning" (click)="onDisplayCategory(category.catId)">Display</button>
-                        </div> -->
+                     
                     </td>
 
                 </tr>

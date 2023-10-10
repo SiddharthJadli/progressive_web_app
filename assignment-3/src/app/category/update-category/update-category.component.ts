@@ -11,7 +11,7 @@ export class UpdateCategoryComponent implements OnInit {
     image : string = "";
     selectedCategory : any;
     categories : any[] = [];
-    
+
 
     constructor(private dbService : DatabaseService, private router : Router) {
         this.CategoryID = "";
@@ -35,6 +35,11 @@ export class UpdateCategoryComponent implements OnInit {
     }
 
     onUpdateCategory() {
+        if (!this.alphanumericName()) {
+            console.log("Validation failed. Name is not alphanumeric");
+            return;
+        }
+
         console.log("Updating category==>", this.selectedCategory);
         const obj = {
             name: this.name,
@@ -49,7 +54,15 @@ export class UpdateCategoryComponent implements OnInit {
             this.onGetCategories();
             this.router.navigate(["/list-categories"]);
         });
+
+
     }
+
+    alphanumericName() {
+        const nospace = this.name.replace(/\s/g, '');
+        return /^[a-zA-Z0-9]*$/.test(nospace);
+      }
+
 
     ngOnInit() {
         this.onGetCategories();

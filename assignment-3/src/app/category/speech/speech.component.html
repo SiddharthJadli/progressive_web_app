@@ -15,11 +15,28 @@
                 </div>
 
                 <button type="button" class="btn btn-success mt-4" (click)="textToSpeech()">Convert to Speech</button>
-                <!-- <audio controls src="audio"></audio> -->
-                <audio controls><source [src]="audio" type="output/mp3"></audio>
+            
+
+                <audio id="audioPlayer" controls>
+                    <source id="mp3_src" src="audio-files/output.mp3" type="audio/mp3">
+                </audio>
+                
+             
+                <!-- C:\Users\Jade\Downloads\ass3\assignment-3\output.mp3 -->
+                <!-- <script>
+                    function textToSpeech() {
+                        document.getElementById("audioPlayer").src ="output.mp3";
+                        document.getElementById("audioPlayer").load();
+                        document.getElementById("audioPlayer").play();
+                    }
+                </script> -->
             </form>
         </div>
     </div>
 </body>
 
 </html>
+
+
+
+               

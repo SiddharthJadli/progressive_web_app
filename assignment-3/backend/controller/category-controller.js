@@ -6,9 +6,9 @@ module.exports = {
 
     addCategory: async (req, res) => {
         try {
-            
+
             console.log("Request body:", req.body);
-            let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventsList: req.body.eventsList});
+            let aCategory = new Category({catId: req.body.catId, name: req.body.name, description: req.body.description, image: req.body.image, eventsList: req.body.eventsList});
             await aCategory.save();
             console.log("Category saved:", aCategory);
             res.status(200).json({category: aCategory.catId});
@@ -19,20 +19,20 @@ module.exports = {
     },
 
 
-    // addEventToCategory: async (req, res) => {
-    //     try {
-    //         const {categoryId, eventId} = req.body;
-    //         const category = await Category.findOne({catId: categoryId});
-    //         const event = await Event.findOne({eventId: eventId});
-    //         category.eventsList.push(event._id);
-    //         await category.save();
-    //         statsController.incrementCounter('add');
-    //         res.status(200).json({message: 'Event added successfully'});
-    //     } catch (error) {
-    //         res.status(400).json({error: "Invalid Data"});
+    addEventToCategory: async (req, res) => {
+        try {
+            const {categoryId, eventId} = req.body;
+            const category = await Category.findOne({catId: categoryId});
+            const event = await Event.findOne({eventId: eventId});
+            category.eventsList.push(event._id);
+            await category.save();
+            statsController.incrementCounter('add');
+            res.status(200).json({message: 'Event added successfully'});
+        } catch (error) {
+            res.status(400).json({error: "Invalid Data"});
 
-    //     }
-    // },
+        }
+    },
 
 
     listCategory: async (req, res) => {
@@ -45,14 +45,30 @@ module.exports = {
     },
 
     displayCategory: async (req, res) => {
+        console.log("displayCategory", req.params)
         try {
-            let categoryID = req.params.catId;
-            let categories = await Category.find({catId: categoryID}).populate({path: 'categoryList', model: 'Category'});
-            res.json(categories);
+            const showCategoryId = req.params.catId;
+    
+            if (showCategoryId == undefined) {
+                const category = await Category.findOne({ catId: showCategoryId }).populate('eventsList');
+                const event = await Event.find({});
+                res.json({ category, event });
+            } else {
+                const category = await Category.findOne({ catId: showCategoryId }).populate('eventsList');
+    
+                if (category == null) {
+                    return res.status(404).json({ error: 'Category not found' });
+                }
+                const event = await Event.find({});
+                res.json({ category, event });
+            }
         } catch (error) {
+            console.error(error);
             res.status(400).json({error: "Invalid Data"});
         }
     },
+    
+
 
 
     deletingCategory: async function (req, res) {
@@ -117,8 +133,5 @@ module.exports = {
         }
     }
 
-  
-    
-  
 
 }
