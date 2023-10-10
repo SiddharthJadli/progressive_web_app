@@ -65,8 +65,6 @@ const routes: Routes = [
     SpeechComponent,
     Stats1Component,
     CapitalPipe,
-    
- ,
     AddEventComponent,
     DeleteEventComponent,
     ListEventsComponent,

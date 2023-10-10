@@ -1,11 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DatabaseService} from 'src/app/services/database.service';
-<<<<<<< HEAD
-
-// import { io } from 'socket.io-client';
-=======
 import {Router} from "@angular/router";
->>>>>>> master
 
 
 @Component({selector: 'app-stats1', templateUrl: './stats1.component.html', styleUrls: ['./stats1.component.css']})
@@ -18,12 +13,6 @@ export class Stats1Component implements OnInit {
    
 
 
-<<<<<<< HEAD
-    // constructor(private dbService : DatabaseService, ) {
-    //     this.socket = io();
-    // }
-}
-=======
     constructor(private dbService : DatabaseService, private router : Router) {}
     ngOnInit() {
       this.getEventCount();
@@ -52,4 +41,3 @@ export class Stats1Component implements OnInit {
 }
 
 
->>>>>>> master

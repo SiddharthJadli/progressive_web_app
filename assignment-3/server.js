@@ -133,7 +133,6 @@ app.get("/list-category", catCont.listCategory);
 app.delete("/delete-category/:catId", catCont.deletingCategory);
 app.put("/update-category/:catId", catCont.updateCategory);
 app.get("/display-category/:catId", catCont.displayCategory);
-const catCont = require("./backend/controller/category-controller");
 app.post("/add-category", catCont.addCategory);
 app.get("/list-category", catCont.listCategory);
 app.delete("/delete-category/:catId", catCont.deletingCategory);
