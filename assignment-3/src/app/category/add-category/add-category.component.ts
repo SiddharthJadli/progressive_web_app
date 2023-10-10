@@ -16,6 +16,7 @@ export class AddCategoryComponent {
 
   //create category object
   saveCategory() {
+    if (this.alphanumericName()) {
     let categoryObj = {
       name: this.name,
       description: this.description,
@@ -25,6 +26,15 @@ export class AddCategoryComponent {
     this.dbService.addCategory(categoryObj).subscribe({
       next: (result) => {this.router.navigate(["/list-categories"])},
       error: (error) => {console.log(error)}
-    })
+    });
+
+  } else {
+    this.router.navigate(['/invalid-data']);
+  }
+  }
+
+  alphanumericName() {
+    const nospace = this.name.replace(/\s/g, '');
+    return /^[a-zA-Z0-9]*$/.test(nospace);
   }
 }

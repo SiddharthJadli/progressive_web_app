@@ -28,4 +28,10 @@ export class DisplayCategoryComponent implements OnInit {
             this.events = data.event;
         });
     }
+
+    addEventToCategory(catId: string, eventId: string) {
+        this.dbService.addEventToCategory(catId, eventId).subscribe(() => {
+          this.onDisplayCategory(catId);
+        });
+}
 }

@@ -4,8 +4,7 @@
  * @requires operation
  */
 
-// $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\Jade\Downloads\ass3\assignment-3\src\fit2095key.json"
-
+// $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\Jade\Downloads\ass3\assignment-3\fit2095project-397500-ef1e037095c7.json"
 const mongoose = require("mongoose");
 const express = require('express');
 const app = express();
@@ -13,8 +12,8 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require("path");
 const fs = require("fs");
-// const textToSpeech = require('@google-cloud/text-to-speech');
-// const client = new textToSpeech.TextToSpeechClient();
+const textToSpeech = require('@google-cloud/text-to-speech');
+const client = new textToSpeech.TextToSpeechClient();
 
 
 const Operation = require("./backend/models/operation");
@@ -22,13 +21,11 @@ const url = "mongodb://127.0.0.1:27017/assignment02";
 
 // express will serve angular as a static asset
 app.use(express.static(path.join(__dirname, "dist/assignment-3")));
-app.use(express.static(path.join(__dirname, "audio-files")));
-//serve audio as static file in audio-files folder
-
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.get("/assignment-3", (req, res) => {});
+app.use('/audio-files', express.static(path.join(__dirname, 'audio-files')));
+//serve audio as static file in audio-files folder
 
 
 // text to speech
@@ -59,15 +56,17 @@ io.on("connection", (socket) => {
                 console.log("Text-to-Speech successful");
                 const audioContent = response.audioContent;
 
+                const audioName =  `audio-files/output_${Date.now()}.mp3`;
+
                 // Save the audio content to a local file
-                fs.writeFile("audio-files/output.mp3", audioContent, "binary", (err) => {
+                fs.writeFile(audioName, audioContent, "binary", (err) => {
                     if (err) {
                         console.error("texttospeech error:", err);
                         socket.emit("text to speech error", {error: "speech failed."});
                     } else {
-                        console.log("Audio content written to file: output.mp3");
+                        console.log("Audio content written to file:" + audioName);
 
-                        socket.emit("text to speech successful", {audioFile: "coutput.mp3"});
+                        socket.emit("text to speech successful", {audioFile: audioName});
                     }
                 });
             }
@@ -147,6 +146,8 @@ app.get("/events", eventCont.listEvents);
 app.delete("/delete-event/:eventId", eventCont.deleteEvent);
 app.put("/update-category/:eventId", eventCont.updateEvent);
 app.get("/display-event/:eventId", eventCont.displayEvent);
+app.post("/display-category/", catCont. addEventToCategory);
+
 
 // for labels in html
 const counters = require("./backend/routes/operation-api");

@@ -49,7 +49,8 @@ const routes: Routes = [
 
 
   {path:'', pathMatch: 'full', redirectTo: 'add-category'},
-  {path:"**", component:PageNotFoundComponent}
+  { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/page-not-found' },
 ]
 
 @NgModule({

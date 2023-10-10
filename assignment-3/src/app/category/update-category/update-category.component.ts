@@ -35,10 +35,8 @@ export class UpdateCategoryComponent implements OnInit {
     }
 
     onUpdateCategory() {
-        if (!this.alphanumericName()) {
-            console.log("Validation failed. Name is not alphanumeric");
-            return;
-        }
+        if (this.alphanumericName()) {
+
 
         console.log("Updating category==>", this.selectedCategory);
         const obj = {
@@ -55,6 +53,10 @@ export class UpdateCategoryComponent implements OnInit {
             this.router.navigate(["/list-categories"]);
         });
 
+    } else {
+        this.router.navigate(['/invalid-data']);
+      }
+
 
     }
 
@@ -67,4 +69,6 @@ export class UpdateCategoryComponent implements OnInit {
     ngOnInit() {
         this.onGetCategories();
     }
+
+   
 }

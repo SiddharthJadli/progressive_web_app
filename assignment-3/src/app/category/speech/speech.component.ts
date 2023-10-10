@@ -7,39 +7,36 @@ import {Router} from "@angular/router";
 export class SpeechComponent {
     socket : any;
     text : string = '';
-    audio : string | undefined;
-
+    audioFiles: string[] = [];
 
     constructor(private router : Router) {
         this.socket = io();
         this.socket.on("text to speech successful", (data : any) => {
             console.log("Setting this.audio");
-            this.audio = '/output.mp3';
-            this.loadAndPlayAudio();
-
+            const audioFile = data.audioFile;
+            this.audioFiles.push(audioFile);
+            this.loadAndPlayAudio(audioFile);
         });
     }
-
 
     textToSpeech() {
         console.log("Emitting textToSpeech event");
         this.socket.emit("textToSpeech", {text: this.text});
-        this.loadAndPlayAudio();
-
     }
-    private loadAndPlayAudio() {
-        console.log("playing audio");
 
-        if (this.audio) {
-            const mp3Audio = new Audio(this.audio);
+    private loadAndPlayAudio(audioFile: string) {
+        console.log("playing audio" + audioFile);
+
+        if (this.audioFiles) {
+            const mp3Audio = new Audio(audioFile);
             mp3Audio.play().then(() => {
                 console.log("Audio successfully.");
+
             })
         }
+
+
     }
 }
 
-  // ngOnInit() {
-  //   this.loadAndPlayAudio();
-  // }
-
+ 
