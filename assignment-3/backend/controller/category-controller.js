@@ -54,11 +54,11 @@ module.exports = {
 
     
     displayCategory: async (req, res) => {
-        console.log("displayCategory", req.params);
+        // console.log("displayCategory", req.params);
         try {
-            const showCategoryId = req.query.id;
+            const showCategoryId = req.params.catId;
             numberOfCategories = await Category.countDocuments();
-    
+
             if (numberOfCategories === 0) {
                 res.status(404).json({ error: "Page not found" });
             } else {
@@ -74,6 +74,7 @@ module.exports = {
                     } else {
                         const events = await Event.find({});
                         res.json({ category, events });
+                        
                     }
                 }
             }

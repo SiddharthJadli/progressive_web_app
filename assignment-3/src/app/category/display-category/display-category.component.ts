@@ -21,11 +21,13 @@ export class DisplayCategoryComponent implements OnInit {
 
     onDisplayCategory(catId : string) { // Fetch both category and event data
         this.dbService.displayCategory(catId).subscribe((data : any) => {
-            console.log(data);
     //.category because in backend, json receiving category & event
 
             this.categories = data.category;
-            this.events = data.event;
+            this.events = data.events;
+
+
+            console.log(this.events);
         });
     }
 

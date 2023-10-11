@@ -39,8 +39,7 @@
                 </tr>
             </thead>
             <tbody *ngFor="let event of events">
-                    <ng-container *ngIf="event.categoriesID && categories?.catId && event.categoriesID.split(', ').includes(categories?.catId)">
-
+                    <ng-container *ngIf="categories._id in event.categoryList">
                             <tr> 
                                 <td>{{event.eventId }}</td>
                                 <td>{{event.name }}</td>
