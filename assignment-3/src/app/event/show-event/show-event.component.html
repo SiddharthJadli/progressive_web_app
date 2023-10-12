@@ -1,57 +1,61 @@
 
-<body>
-    <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;">Display Event</h2>
+        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;">Display Event</h2>
 
-    <table>
-        <tbody>   
-            <tr>
-                <td>Object ID:</td>
-                <td>{{events._id }}</td>
-            </tr>
+        <table>
+            <tbody>   
+                <tr>
+                    <td>Object ID:</td>
+                    <td>{{event._id }}</td>
+                </tr>
 
-            <tr>
-                <td>Event ID:</td>
-                <td>{{events.eventId }}</td>
-            </tr>
+                <tr>
+                    <td>Event ID:</td>
+                    <td>{{event.eventId }}</td>
+                </tr>
 
-            <tr>
-                <td>Name:</td>
-                <td>{{events.name }}</td>
-            </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td>{{event.name }}</td>
+                </tr>
 
-            <tr>
-                <td>Description:</td>
-                <td>{{events.description }}</td>
-            </tr>
-            <tr>
-                <td>StartDateTime:</td>
-                <td>{{events.startTimeFormatted }}</td>
-            </tr>
-            <tr>
-                <td>EndDateTime:</td>
-                <td>{{events.endTimeFormatted }}</td>
-            </tr>
-            <tr>
-                <td>Duration:</td>
-                <td>{{events.duration }}</td>
-            </tr>
-            <tr>
-                <td>Is Active:</td>
-                <td>{{events.isActive }}</td>
-            </tr>
-            <tr>
-                <td>Capacity:</td>
-                <td>{{events.capacity }}</td>
-            </tr>
-            <tr>
-                <td>Tickets Available:</td>
-                <td>{{events.ticketsAvailable }}</td>
-            </tr>
-            <tr>
-                <td>Categories:</td>
-                <td>{{events.categoryID }}</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-
+                <tr>
+                    <td>Description:</td>
+                    <td>{{event.description }}</td>
+                </tr>
+                <tr>
+                    <td>StartDateTime:</td>
+                    <td>{{event.startTimeFormatted }}</td>
+                </tr>
+                <tr>
+                    <td>EndDateTime:</td>
+                    <td>{{event.endTimeFormatted }}</td>
+                </tr>
+                <tr>
+                    <td>Duration:</td>
+                    <td>{{event.duration | formatMinutes }}</td>
+                </tr>
+                <tr>
+                    <td>Is Active:</td>
+                    <td>
+                        <div *ngIf="event.isActive; else elseBlock">
+                            <input type="checkbox" disabled="disabled" checked>
+                        </div>
+                        <ng-template #elseBlock>
+                            <input type="checkbox" disabled="disabled">
+                        </ng-template>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Capacity:</td>
+                    <td>{{event.capacity }}</td>
+                </tr>
+                <tr>
+                    <td>Tickets Available:</td>
+                    <td>{{event.availableTickets }}</td>
+                </tr>
+                <tr>
+                    <td>Categories:</td>
+                    <td>{{event.categoryID }}</td>
+                </tr>
+            </tbody>
+        </table>

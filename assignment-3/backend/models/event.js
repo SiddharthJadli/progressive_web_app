@@ -38,8 +38,7 @@ const eventSchema = new mongoose.Schema({
                 minute: "2-digit",
                 day: "2-digit",
                 month: "2-digit",
-                year: "numeric",
-                timeZone: "UTC"
+                year: "numeric"
             }).format(this.startTime)
         }
     },
@@ -64,8 +63,7 @@ const eventSchema = new mongoose.Schema({
                 minute: "2-digit",
                 day: "2-digit",
                 month: "2-digit",
-                year: "numeric", 
-                timeZone: "UTC"
+                year: "numeric"
             }).format(this.endTime)
         }
     },

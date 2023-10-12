@@ -1,10 +1,3 @@
-/**
- * @requires mongoose
- * @requires express
- * @requires operation
- */
-
-// $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\Jade\Downloads\ass3\assignment-3\fit2095project-397500-ef1e037095c7.json"
 const mongoose = require("mongoose");
 const express = require('express');
 const app = express();
@@ -14,10 +7,9 @@ const path = require("path");
 const fs = require("fs");
 const textToSpeech = require('@google-cloud/text-to-speech');
 const client = new textToSpeech.TextToSpeechClient();
-
-
 const Operation = require("./backend/models/operation");
 const url = "mongodb://127.0.0.1:27017/assignment02";
+const { Translate } = require("@google-cloud/translate").v2;
 
 // express will serve angular as a static asset
 app.use(express.static(path.join(__dirname, "dist/assignment-3")));
@@ -25,12 +17,33 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.get("/assignment-3", (req, res) => {});
 app.use('/audio-files', express.static(path.join(__dirname, 'audio-files')));
-//serve audio as static file in audio-files folder
 
+const translate = new Translate();
 
-// text to speech
+async function translateText(text, targetLanguage) {
+  try {
+    const [translation] = await translate.translate(text, targetLanguage);
+    return translation;
+  } catch (error) {
+    console.error('Translation error:', error);
+    return null;
+  }
+}
+
+// Socket
 io.on("connection", (socket) => {
-    console.log("new connection-->" + socket.id);
+    console.log("New connection-->" + socket.id);
+
+    socket.on('translate', async (data) => {
+        try {
+          data.response = await translateText(data.text, data.targetLanguage);
+    
+          // Emit the translatation
+          socket.emit('translatedResponse', data);
+        } catch (error) {
+          console.error('Translation error:', error);
+        }
+      });
 
     socket.on("textToSpeech", (data) => {
         const inputText = data.text;
@@ -110,20 +123,7 @@ async function asyncCall() {
     }
 }
 
-// asyncCall();
-
-
-/**
-/**
- * Require and use the event, category, original router.
- */
-// const eventRouter = require("./backend/routes/event-api");
-// app.use("/sidd/api/v1", eventRouter);
-
-// const categoryRouter = require("./backend/routes/category-api");
-// app.use("./api/v1/category/33306036", categoryRouter);
-// // C:\Users\Jade\Downloads\ass3\assignment-3\backend\routes\category-api.js
-// app.use("/api/v1/category/33306036", categoryRouter);
+asyncCall();
 
 
 const catCont = require("./backend/controller/category-controller");
@@ -141,12 +141,15 @@ app.get("/display-category/:catId", catCont.displayCategory);
 
 
 const eventCont = require("./backend/controller/event-controller")
+const oppCont = require("./backend/controller/stats")
 app.post("/add-event", eventCont.insertEvent);
 app.get("/events", eventCont.listEvents);
 app.delete("/delete-event/:eventId", eventCont.deleteEvent);
-app.put("/update-category/:eventId", eventCont.updateEvent);
+app.put("/update-event/:eventId", eventCont.updateEvent);
 app.get("/display-event/:eventId", eventCont.displayEvent);
-app.post("/display-category/", catCont. addEventToCategory);
+app.get("/addcount", oppCont.addCount);
+app.get("/updatecount", oppCont.updateCount);
+app.get("/deletecount", oppCont.deleteCount);
 
 
 // for labels in html
@@ -158,7 +161,7 @@ app.get("/stats1/categories", statsCont.countCategories);
 app.get("/stats1/events", statsCont.countEvents);
 
 
-/**
+
 /**
  * Asynchronous function to connect to the MongoDB database.
  * @param {string} url - The MongoDB connection URL.
@@ -176,15 +179,3 @@ connect(url).then(() => {
         console.log("Server is listening on port 8080");
     });
 }).catch((err) => console.log(err));
-
-
-
-// app.get("/" , async function (req, res) {
-//     const firstCategory =await Category.findOne();
-//     if (firstCategory == null){
-//         res.render("index", {catID: ""});
-//     }else{
-//         console.log(firstCategory);
-//         res.render("index", {catID: firstCategory.catId});
-//     }
-// });

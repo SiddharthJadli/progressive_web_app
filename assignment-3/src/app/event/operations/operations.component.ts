@@ -21,15 +21,15 @@ export class OperationsComponent implements OnInit {
   fetchOperationCounts() {
     // Use your operations service to fetch the counts from the backend
     this.dbService.getAddCount().subscribe((data: any) => {
-      this.addCount = data;
+      this.addCount = data.count;
     })
 
     this.dbService.getUpdateCount().subscribe((data: any) => {
-      this.updateCount = data;
+      this.updateCount = data.count;
     })
 
     this.dbService.getDeleteCount().subscribe((data: any) => {
-      this.deleteCount = data;
+      this.deleteCount = data.count;
     })
   }
 }

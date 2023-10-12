@@ -93,7 +93,7 @@ module.exports = {
     displayEvent: async (req, res) => {
         try {
             let eventID = req.params.eventId;
-            let anEvent = await Event.find({eventID: eventID}).populate({path: 'categoryList', model: 'Category'});
+            let anEvent = await Event.find({eventId: eventID}).populate({path: 'categoryList', model: 'Category'});
             res.json(anEvent);
         } catch (error) {
             res.status(400).json({error: "Invalid Data"});

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http"
-const backendBaseUrl = 'http://localhost:8080';
 
 const httpOptions = {
     headers: new HttpHeaders(
@@ -74,7 +73,7 @@ export class DatabaseService {
     addEventToCategory(categoryId: string, eventId: string) {
         const body = { categoryId, eventId };
         return this.http.post('/your-server-endpoint-for-adding-event-to-category', body);
-      }
+    }
 
     getAddCount() {
         return this.http.get("/addcount", httpOptions)

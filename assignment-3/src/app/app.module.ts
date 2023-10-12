@@ -19,16 +19,19 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DatabaseService } from './services/database.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-// import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { CapitalPipe } from './pipes/capital.pipe';
+import { FormatMinutesPipe } from './pipes/format-minutes.pipe';
 
 import { AddEventComponent } from './event/add-event/add-event.component';
 import { DeleteEventComponent } from './event/delete-event/delete-event.component';
 import { ListEventsComponent } from './event/list-events/list-events.component';
 import { InvalidDataComponent } from './event/invalid-data/invalid-data.component';
 import { UpdateEventComponent } from './event/update-event/update-event.component';
-import { FormatMinutesPipe } from './pipes/format-minutes.pipe';
 import { OperationsComponent } from './event/operations/operations.component';
+import { ShowEventComponent } from './event/show-event/show-event.component';
+import { TranslationComponent } from './event/translation/translation.component';
+
 
 const routes: Routes = [
   {path:"add-category", component:AddCategoryComponent},
@@ -44,8 +47,9 @@ const routes: Routes = [
   {path:"list-events", component:ListEventsComponent},
   {path:"delete-event", component:DeleteEventComponent},
   {path:"update-event", component:UpdateEventComponent},
-  // {path:"delete-event", component:tranl},
   {path:"operations", component:OperationsComponent},
+  {path:"display-event/:eventId", component:ShowEventComponent},
+  {path:"translation", component:TranslationComponent},
 
 
   {path:'', pathMatch: 'full', redirectTo: 'add-category'},
@@ -72,7 +76,9 @@ const routes: Routes = [
     InvalidDataComponent,
     UpdateEventComponent,
     FormatMinutesPipe,
-    OperationsComponent
+    OperationsComponent,
+    TranslationComponent,
+    ShowEventComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from 'express';
 import { DatabaseService } from 'src/app/services/database.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-show-event',
@@ -8,25 +8,19 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./show-event.component.css']
 })
 export class ShowEventComponent implements OnInit {
-  events : any = [];
+  event : any = [];
 
-  constructor(private dbService : DatabaseService, private router: Router) {}
+  constructor(private dbService : DatabaseService, private router: ActivatedRoute) {}
   
   ngOnInit() {
-    this.onGetEvents();
+    const eventId = this.router.snapshot.paramMap.get('eventId');
+    this.onGetEvent(eventId);
   }   
     
-  onGetEvents() {
-    console.log("from onGetEvents");
-    return this.dbService.getEvents().subscribe((data: any) => {
-      this.events = data;
-    });
-  }
-    
-  onDisplayEvent(eventId: string) {
-    this.dbService.displayEvent(eventId).subscribe(result => {
-      this.onGetEvents();
-      this.ngOnInit();
+  onGetEvent(eventId: any) {
+    return this.dbService.displayEvent(eventId).subscribe((data: any) => {
+      console.log(data[0]);
+      this.event = data[0];
     });
   }
 }

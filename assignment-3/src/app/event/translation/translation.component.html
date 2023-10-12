@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div class="container-fluid d-flex justify-content-center mt-5 vh-100">
+        <div class="container m-3">
+            <h4>Translation</h4>
+            <p>Text to translate</p>
+
+            <form>
+                <div class="form-group mb-8">
+                    <textarea class="form-control" id="translation" [(ngModel)]="text" placeholder="Enter text" rows="1">
+                    </textarea>
+                </div>
+
+                <div>
+                    <p>Target Language: </p>
+
+                    <div class="custom-select">
+                        <select [(ngModel)]="selectedLanguage" name="dropdown">
+                            <option hidden selected>Select target language</option>
+                            <option value="hi">Hindi</option>
+                            <option value="zh-CN">Chinese</option>
+                            <option value="ta">Tamil</option>
+                        </select>
+                      </div>
+
+                    <button type="button" class="btn btn-success mt-4" (click)="translate()">Translate</button>
+                </div>  
+                <div *ngIf="translatedResponses.length > 0">
+                        <table class="table">
+                            <thead> 
+                                <tr> 
+                                    <th scope="col">Text</th>
+                                    <th scope="col">Target Langage</th>
+                                    <th scope="col">Translation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of translatedResponses">
+                                    <td>{{ data.text }}</td>
+                                    <td>
+                                        <div *ngIf="data.targetLanguage == 'hi'">
+                                            Hindi
+                                        </div>
+                                        <div *ngIf="data.targetLanguage == 'zh-CN'"> 
+                                            Chinese
+                                        </div>
+                                        <div *ngIf="data.targetLanguage == 'ta'">
+                                            Tamil
+                                        </div>
+                                    </td>
+                                    <td>{{ data.response }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

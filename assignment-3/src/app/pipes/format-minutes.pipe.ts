@@ -10,7 +10,7 @@ export class FormatMinutesPipe implements PipeTransform {
     } else {
       const hours = Math.floor(minutes / 60);
       const remainingMinutes = minutes % 60;
-      return `${hours} hr(s) ${remainingMinutes} min`;
+      return `${hours} hr(s) ${remainingMinutes} min(s)`;
     }
   }
 }
