@@ -4,6 +4,10 @@
     <table>
         <tbody>
             <tr *ngIf="categories">
+                <td>object id:</td>
+                <td>{{ categories._id }}</td>
+            </tr>
+            <tr *ngIf="categories">
                 <td>Category ID:</td>
                 <td>{{ categories.catId | capital }}</td>
             </tr>

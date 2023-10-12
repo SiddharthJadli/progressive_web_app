@@ -125,7 +125,7 @@ async function asyncCall() {
 
 asyncCall();
 
-
+//jade
 const catCont = require("./backend/controller/category-controller");
 app.post("/add-category", catCont.addCategory);
 app.get("/list-category", catCont.listCategory);
@@ -137,9 +137,11 @@ app.get("/list-category", catCont.listCategory);
 app.delete("/delete-category/:catId", catCont.deletingCategory);
 app.put("/update-category/:catId", catCont.updateCategory);
 app.get("/display-category/:catId", catCont.displayCategory);
+const statsCont = require("./backend/controller/stats");
+app.get("/stats1/categories", statsCont.countCategories);
+app.get("/stats1/events", statsCont.countEvents);
 
-
-
+//sidd
 const eventCont = require("./backend/controller/event-controller")
 const oppCont = require("./backend/controller/stats")
 app.post("/add-event", eventCont.insertEvent);
@@ -152,13 +154,6 @@ app.get("/updatecount", oppCont.updateCount);
 app.get("/deletecount", oppCont.deleteCount);
 
 
-// for labels in html
-const counters = require("./backend/routes/operation-api");
-app.use("/count", counters);
-
-const statsCont = require("./backend/controller/stats");
-app.get("/stats1/categories", statsCont.countCategories);
-app.get("/stats1/events", statsCont.countEvents);
 
 
 
