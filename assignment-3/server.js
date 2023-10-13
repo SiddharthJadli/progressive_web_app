@@ -29,6 +29,7 @@ async function translateText(text, targetLanguage) {
     return null;
   }
 }
+//
 
 // Socket
 io.on("connection", (socket) => {
