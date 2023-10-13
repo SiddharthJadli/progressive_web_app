@@ -1,5 +1,5 @@
 <body>
-    <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;">Display categories</h2>
+    <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;">Display Category</h2>
 
     <table>
         <tbody>
@@ -36,7 +36,7 @@
     </table>
     
 
-    <div class="table1">
+    <div *ngIf="events.length > 0">
         <table class="container m-3">
             <thead>
                 <tr>
@@ -52,27 +52,31 @@
                 </tr>
             </thead>
             <tbody *ngFor="let event of events">
-                    <ng-container *ngIf="categories._id in event.categoryList">
-                            <tr> 
-                                <td>{{event.eventId }}</td>
-                                <td>{{event.name }}</td>
-                                <td>{{event.startTimeFormatted }}</td>
-                                <td>{{event.endTimeFormatted }}</td>
-                                <td>{{event.duration }}</td>
-                                <td>
-                                    <input type="checkbox" [disabled]="event.isActive !== true" [checked]="event.isActive === true">
-
-                                </td>
-                                <td>{{event.capacity }}</td>
-                                <td>{{event.availableTickets }}</td>
-                                <td>
-                                    <div class="buttons-contain">
-                                        <a [routerLink]="['/display-event/' + event.eventId]" class="btn btn-primary" role="button">display</a>
-                                    </div>
-                                </td> 
-                            </tr>
-                        </ng-container>
-                </tbody>
+                <tr> 
+                    <td>{{ event.eventId }}</td>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.startTimeFormatted }}</td>
+                    <td>{{ event.endTimeFormatted }}</td>
+                    <td>{{ event.duration }}</td>
+                    <td>
+                        <input type="checkbox" [disabled]="event.isActive !== true" [checked]="event.isActive === true">
+                    </td>
+                    <td>{{ event.capacity }}</td>
+                    <td>{{ event.availableTickets }}</td>
+                    <td>
+                        <div class="buttons-contain">
+                            <a [routerLink]="['/display-event/' + event.eventId]" class="btn btn-primary" role="button">display</a>
+                        </div>
+                    </td> 
+                </tr>
+            </tbody>
+            
         </table>
+       
     </div>
+    <div *ngIf="events.length === 0" class="text-center" style="margin-top: 20px;">
+        <h6 class="text-info">There are no events in this category.</h6>
+    </div>
+    
+    
 </body>

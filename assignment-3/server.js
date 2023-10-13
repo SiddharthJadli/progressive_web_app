@@ -132,11 +132,6 @@ app.get("/list-category", catCont.listCategory);
 app.delete("/delete-category/:catId", catCont.deletingCategory);
 app.put("/update-category/:catId", catCont.updateCategory);
 app.get("/display-category/:catId", catCont.displayCategory);
-app.post("/add-category", catCont.addCategory);
-app.get("/list-category", catCont.listCategory);
-app.delete("/delete-category/:catId", catCont.deletingCategory);
-app.put("/update-category/:catId", catCont.updateCategory);
-app.get("/display-category/:catId", catCont.displayCategory);
 const statsCont = require("./backend/controller/stats");
 app.get("/stats1/categories", statsCont.countCategories);
 app.get("/stats1/events", statsCont.countEvents);
@@ -152,9 +147,6 @@ app.get("/display-event/:eventId", eventCont.displayEvent);
 app.get("/addcount", oppCont.addCount);
 app.get("/updatecount", oppCont.updateCount);
 app.get("/deletecount", oppCont.deleteCount);
-
-
-
 
 
 /**

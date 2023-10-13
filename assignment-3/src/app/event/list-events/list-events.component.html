@@ -39,8 +39,8 @@
                         <td>{{ event.capacity }}</td>
                         <td>{{ event.availableTickets }}</td>
                         <td>
-                            <div *ngFor="let cat of event.categoryList">
-                                <a [routerLink]="['/display-category/', cat.catId]" class="btn btn-warning btn-sm" role="button">{{cat.catId}}</a>
+                            <div *ngFor="let cat of event.categoryList" class="yellowbuttons">
+                                <a [routerLink]="['/display-category/', cat.catId]" class="btn btn-warning btn-sm " role="button">{{cat.catId}}</a>
                             </div>
                         </td>
                         <td>

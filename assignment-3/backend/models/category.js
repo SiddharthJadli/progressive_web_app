@@ -12,12 +12,25 @@ const categorySchema = new mongoose.Schema({
         }
     },
 
-    name: {
+    // name: {
+    //     type: String,
+    //     required: true
+        
+    // },
+    name:  {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: function(value) {
+                return validator.isAlphanumeric(value);
+            },
+            message: "Name accepts alphanumeric values only"
+        }
     },
 
-    description: String,
+    description: {
+        type: String,
+        default: "Default description"},
 
     image: {
         type: String,

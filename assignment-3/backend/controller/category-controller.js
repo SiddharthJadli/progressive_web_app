@@ -31,37 +31,32 @@ module.exports = {
 
     
     displayCategory: async (req, res) => {
-        // console.log("displayCategory", req.params);
         try {
-            const showCategoryId = req.params.catId;
-            numberOfCategories = await Category.countDocuments();
-
-            if (numberOfCategories === 0) {
-                res.status(404).json({ error: "Page not found" });
+          const showCategoryId = req.params.catId;
+          numberOfCategories = await Category.countDocuments();
+          if (numberOfCategories === 0) {
+            return res.status(404).json({ error: "Page not found" });
+          }
+      
+          if (showCategoryId === undefined) {
+            const categories = await Category.find({}).populate('eventsList');
+            return res.json(categories);
+          } else {
+            const category = await Category.findOne({ catId: showCategoryId }).populate('eventsList');
+      
+            if (category == null) {
+              return res.status(404).json({ error: "Category not found" });
             } else {
-                if (showCategoryId === undefined) {
-                    const category = await Category.findOne({}).populate('eventsList');
-                    const events = await Event.find({});
-                    res.json({ category, events });
-                } else {
-                    const category = await Category.findOne({ catId: showCategoryId }).populate('eventsList');
-                    
-                    if (category == null) {
-                        res.status(404).json({ error: "Page not found" });
-                    } else {
-                        const events = await Event.find({});
-                        res.json({ category, events });
-                        
-                    }
-                }
+              const events = await Event.find({ _id: { $in: category.eventsList } });
+              return res.json({ category, events });
             }
+          }
         } catch (error) {
-            console.error(error);
-            res.status(400).json({ error: "Invalid data" });
+          console.error(error);
+          return res.status(400).json({ error: "Invalid data" });
         }
-    },
-    
-    
+      },
+      
 
 
     deletingCategory: async function (req, res) {
@@ -76,19 +71,19 @@ module.exports = {
             const events = await Event.find({categoryList: aCategory._id});
 
             for (const event of events) { // finding event from events array,remove category from event's category list
-                const index = event.categoryList.indexOf(aCategory._id);
-                if (index !== -1) {
-                    event.categoryList.splice(index, 1);
-                    await event.save();
+                // if there is >1 event in a category
+                if (event.categoryList.length >1) {
+                    const index = event.categoryList.indexOf(aCategory._id);
+                    if (index !== -1)  {
+                        event.categoryList.splice(index, 1);
+                        await event.save();
+                    }
+                } else {
+                    await Event.deleteOne({_id: event._id});
                 }
-            }
-            // deleting event and category
-            const deletingEvent = events.map((event) => event._id);
-            await Event.deleteMany({
-                _id: {
-                    $in: deletingEvent
                 }
-            });
+
+            // deleting category
             const deletedCategory = await Category.deleteOne({_id: aCategory._id});
             statsController.incrementCounter('delete');
             res.status(200).json(deletedCategory);
@@ -104,6 +99,8 @@ module.exports = {
             let categoryID = req.body.catId;
             let name = req.body.name;
             let description = req.body.description;
+            let image = req.body.image;
+
             console.log('Received categoryID:', categoryID);
             console.log('Received request body:', req.body);
 
@@ -112,7 +109,8 @@ module.exports = {
                 catId: categoryID
             }, {
                 name: name,
-                description: description
+                description: description,
+                image: image
             });
             statsController.incrementCounter('update');
 

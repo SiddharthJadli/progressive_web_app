@@ -33,7 +33,7 @@
                         <img *ngIf="!category.image" [src]="'/assets/Images/Categoryimg.png'" alt="Default Image" style="width: 500px; height: auto;"/>
                     </td>
                     <td>{{ category.createdAtFormatted }}</td>
-                    <td>{{ category.eventsCount }}</td>
+                    <td>{{ category.eventsList.length }}</td>
 
                     <td>
                         <div class="buttons-contain">

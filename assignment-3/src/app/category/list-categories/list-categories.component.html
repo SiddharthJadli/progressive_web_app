@@ -28,6 +28,7 @@
                     <td>{{ category.description }}</td>
 
                     <td>
+                        {{category.image}}
                         <img *ngIf="category.image"
                             [src]="category.image.startsWith('/') ? category.image : '/assets/Images/' + category.image"
                             alt="Category Image" style="width: 500px; height: auto;" />

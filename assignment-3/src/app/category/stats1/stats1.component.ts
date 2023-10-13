@@ -30,14 +30,6 @@ export class Stats1Component implements OnInit {
           this.categoryCount = data.count;
       });
   }
-
-//   getCategoryEventCount(catId: string) {
-//     return this.dbService.getEventCountForCategory(catId).subscribe((data: any) => {
-//       this.categoryEventCount = data.count;
-//     });
-//   }
-  
-  
 }
 
 
