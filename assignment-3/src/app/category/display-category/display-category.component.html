@@ -57,8 +57,10 @@
                                 <td>{{event.capacity }}</td>
                                 <td>{{event.availableTickets }}</td>
                                 <td>
-                                    <a [routerLink]="'/categories?/33306036/show-event-details/' + event.eventId" class="btn btn-primary">View</a>
-                                </td>
+                                    <div class="buttons-contain">
+                                        <a [routerLink]="['/display-event/' + event.eventId]" class="btn btn-primary" role="button">display</a>
+                                    </div>
+                                </td> 
                             </tr>
                         </ng-container>
                 </tbody>
