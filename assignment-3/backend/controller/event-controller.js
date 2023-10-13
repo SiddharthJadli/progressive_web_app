@@ -85,13 +85,15 @@ module.exports = {
                     category.eventsList = category.eventsList.filter(
                         (eventId) => eventId.toString() !== anEvent._id.toString()
                     );
-                    await category.save();
+                    if (category.eventsList.length == 0) {
+                        await Category.deleteOne({_id: category._id});
+                    } else{
+                        await category.save();
+                    }
                 }
             }
     
             let deletedEvent = await Event.deleteOne({ eventId: eventID });
-
-            console.log("The deleted event is- " + anEvent)
     
             statsController.incrementCounter('delete');
     

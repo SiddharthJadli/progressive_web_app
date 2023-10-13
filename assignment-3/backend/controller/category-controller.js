@@ -81,7 +81,7 @@ module.exports = {
                 } else {
                     await Event.deleteOne({_id: event._id});
                 }
-                }
+            }
 
             // deleting category
             const deletedCategory = await Category.deleteOne({_id: aCategory._id});
