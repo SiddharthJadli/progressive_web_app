@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import { UpdateEventComponent } from './event/update-event/update-event.componen
 import { OperationsComponent } from './event/operations/operations.component';
 import { ShowEventComponent } from './event/show-event/show-event.component';
 import { TranslationComponent } from './event/translation/translation.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 const routes: Routes = [
@@ -85,6 +86,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes,{useHash:true}), 
     HttpClientModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: true,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [DatabaseService],
   bootstrap: [AppComponent]
