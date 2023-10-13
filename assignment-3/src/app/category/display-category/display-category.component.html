@@ -9,11 +9,11 @@
             </tr>
             <tr *ngIf="categories">
                 <td>Category ID:</td>
-                <td>{{ categories.catId | capital }}</td>
+                <td>{{ categories.catId}}</td>
             </tr>
             <tr *ngIf="categories">
                 <td>Name:</td>
-                <td>{{ categories.name }}</td>
+                <td>{{ categories.name  | capital  }}</td>
             </tr>
             <tr *ngIf="categories">
                 <td>Description:</td>
@@ -22,6 +22,15 @@
             <tr *ngIf="categories">
                 <td>Created Date Time:</td>
                 <td>{{ categories.createdAtFormatted }}</td>
+            </tr>
+
+            <tr>
+                <td>Image:</td>
+                <img *ngIf="categories.image"
+                    [src]="categories.image.startsWith('/') ? categories.image : '/assets/Images/' + categories.image"
+                    alt="Category Image" style="width: 500px; height: auto;" />
+                <img *ngIf="!categories.image" [src]="'/assets/Images/Categoryimg.png'" alt="Default Image"
+                    style="width: 500px; height: auto;" />
             </tr>
         </tbody>
     </table>

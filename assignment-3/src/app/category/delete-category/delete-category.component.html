@@ -24,7 +24,7 @@
 
                 <tr *ngFor="let category of categories">
                     <td>{{ category.catId }}</td>
-                    <td>{{ category.name | capital }}</td>
+                    <td>{{ category.name }}</td>
                     <td>{{ category.description }}</td>
                     <td>
                         <img *ngIf="category.image"
