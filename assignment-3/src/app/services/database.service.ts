@@ -69,11 +69,6 @@ export class DatabaseService {
     displayEvent(eventId : string) {
         return this.http.get("/display-event/" + eventId, httpOptions)
     }
-    
-    addEventToCategory(categoryId: string, eventId: string) {
-        const body = { categoryId, eventId };
-        return this.http.post('/your-server-endpoint-for-adding-event-to-category', body);
-    }
 
     getAddCount() {
         return this.http.get("/addcount", httpOptions)

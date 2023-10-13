@@ -80,8 +80,6 @@ module.exports = {
             for (let i = 0; i < anEvent.categoryList.length; i++) {
                 let categoryID = anEvent.categoryList[i];
                 let category = await Category.findById(categoryID);
-
-                console.log("The category associated with the event is- " + category)
     
                 if (category) {
                     category.eventsList = category.eventsList.filter(
