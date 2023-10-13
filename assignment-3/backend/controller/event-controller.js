@@ -18,9 +18,19 @@ module.exports = {
             });
 
             const category = await Category.find({catId: {$in: categoryIDList}});
+
             anEvent.categoryList = category;
 
+            for (let index = 0; index < category.length; index++) {
+                const cat = category[index];
+
+                cat.eventsList.push(anEvent);
+                
+                await cat.save();
+            }
+
             await anEvent.save();
+            
 
             statsController.incrementCounter('add');
 
@@ -65,11 +75,13 @@ module.exports = {
             let eventID = req.params.eventId; 
     
             let anEvent = await Event.findOne({ eventId: eventID });
-    
+
             // Remove the event from the associated categories
             for (let i = 0; i < anEvent.categoryList.length; i++) {
                 let categoryID = anEvent.categoryList[i];
                 let category = await Category.findById(categoryID);
+
+                console.log("The category associated with the event is- " + category)
     
                 if (category) {
                     category.eventsList = category.eventsList.filter(
@@ -80,6 +92,8 @@ module.exports = {
             }
     
             let deletedEvent = await Event.deleteOne({ eventId: eventID });
+
+            console.log("The deleted event is- " + anEvent)
     
             statsController.incrementCounter('delete');
     

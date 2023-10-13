@@ -55,7 +55,11 @@
                 </tr>
                 <tr>
                     <td>Categories:</td>
-                    <td>{{event.categoryID }}</td>
+                    <td>
+                        <div *ngFor="let cat of event.categoryList">
+                            <a [routerLink]="['/display-category/', cat.catId]" class="btn btn-warning btn-sm" role="button">{{cat.catId}}</a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

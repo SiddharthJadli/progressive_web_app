@@ -14,13 +14,7 @@ const categorySchema = new mongoose.Schema({
 
     name: {
         type: String,
-        required: true,
-        validate: {
-            validator: function (value) {
-                return validator.isAlphanumeric(value);
-            },
-            message: 'Name only accept alphanumeric values only.'
-        }
+        required: true
     },
 
     description: String,

@@ -10,7 +10,7 @@ module.exports = {
             console.log("Request body:", req.body);
             let aCategory = new Category({catId: req.body.catId, name: req.body.name, description: req.body.description, image: req.body.image, eventsList: req.body.eventsList});
             await aCategory.save();
-            console.log("Category saved:", aCategory);
+            statsController.incrementCounter('add');
             res.status(200).json({category: aCategory.catId});
         } catch (error) {
             res.status(400).json({error: "Invalid Data"});
